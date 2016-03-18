@@ -14,4 +14,7 @@ set shiftwidth=4
 "   PageUp/Down
         noremap     <C-k>       <Esc><C-b>
         noremap     <C-j>       <Esc><C-f>
+"   UnDo/ReDo
+        inoremap    <C-z>       <Esc>ui
+        inoremap    <C-y>       <Esc><C-r>i
 
