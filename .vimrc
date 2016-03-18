@@ -24,4 +24,7 @@ set shiftwidth=4
 "   Searh
         set hlsearch
         set incsearch
+"   Cursor
+        set ruler
+        set number
 
