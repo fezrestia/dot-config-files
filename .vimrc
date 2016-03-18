@@ -17,4 +17,11 @@ set shiftwidth=4
 "   UnDo/ReDo
         inoremap    <C-z>       <Esc>ui
         inoremap    <C-y>       <Esc><C-r>i
+"   Remove Search Highlight
+        noremap     <Esc><Esc>  :noh<CR>
+
+" Property
+"   Searh
+        set hlsearch
+        set incsearch
 
