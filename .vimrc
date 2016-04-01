@@ -38,3 +38,7 @@ set shiftwidth=4
         autocmd WinLeave * setlocal nocursorline
 "        autocmd WinLeave * setlocal nocursorcolumn
 
+" Syntax
+    syntax enable                       " Syntax color
+    set showmatch                       " Show match bracket
+
