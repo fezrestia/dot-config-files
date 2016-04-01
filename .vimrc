@@ -42,3 +42,7 @@ set shiftwidth=4
     syntax enable                       " Syntax color
     set showmatch                       " Show match bracket
 
+" Invisible Charactors
+    set list                            " Show invisible charactors
+    set listchars=tab:>\ ,trail:#       " Invisible charactors visible pattern
+
