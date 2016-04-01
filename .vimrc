@@ -46,3 +46,6 @@ set shiftwidth=4
     set list                            " Show invisible charactors
     set listchars=tab:>\ ,trail:#       " Invisible charactors visible pattern
 
+" Auto Refresh Buffer
+    set autoread                        " Auto refresh current buffer
+
