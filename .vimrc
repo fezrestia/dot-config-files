@@ -56,3 +56,7 @@ set shiftwidth=4
 " Copy and Paste
     set clipboard=unnamed               " Use clipboard in common among other apps
 
+" IME
+    set iminsert=0                      " IME On/Off in insert mode
+    set imsearch=0                      " IME On/Off in seach mode
+
