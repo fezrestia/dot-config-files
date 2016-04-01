@@ -49,3 +49,7 @@ set shiftwidth=4
 " Auto Refresh Buffer
     set autoread                        " Auto refresh current buffer
 
+" Auto Generated Files
+    set nobackup                        " Back up file
+    set noswapfile                      " Swap file
+
