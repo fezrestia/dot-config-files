@@ -20,10 +20,12 @@ set shiftwidth=4
 "   Remove Search Highlight
         noremap     <Esc><Esc>  :noh<CR>
 
-" Property
-"   Searh
-        set hlsearch
-        set incsearch
+" Searh
+    set hlsearch                        " Hightlight search result
+    set incsearch                       " Incremental search
+    set nowrapscan                      " Search from Top of File after End
+    set ignorecase                      " Ignore CASE/case
+
 "   Cursor
         set ruler
         set number
