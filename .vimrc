@@ -53,3 +53,6 @@ set shiftwidth=4
     set nobackup                        " Back up file
     set noswapfile                      " Swap file
 
+" Copy and Paste
+    set clipboard=unnamed               " Use clipboard in common among other apps
+
