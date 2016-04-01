@@ -65,3 +65,9 @@ set shiftwidth=4
     let g:netrw_altv=1                  " Open file at right side by 'v'
     let g:netrw_alto=1                  " Open file at bottom side by 'o'
 
+" Tab
+    " Move to left tab
+        map H gT
+    " Move to right tab
+        map L gt
+
