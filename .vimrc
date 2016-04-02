@@ -4,8 +4,10 @@
     set encoding=utf-8
 
 " Disable Key Mapping
-    nnoremap ZZ <Nop>
-    nnoremap ZQ <Nop>
+    nnoremap    ZZ          <Nop>
+    nnoremap    ZQ          <Nop>
+    nnoremap    J           <Nop>
+    nnoremap    K           <Nop>
 
 " Tab
 set tabstop=4
