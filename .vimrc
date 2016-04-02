@@ -1,5 +1,8 @@
 ".vimrc
 
+" Encoding
+    set encoding=utf-8
+
 " Disable Key Mapping
     nnoremap ZZ <Nop>
     nnoremap ZQ <Nop>
