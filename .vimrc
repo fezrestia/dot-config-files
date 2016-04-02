@@ -79,3 +79,6 @@ set shiftwidth=4
     " Move to right tab
         map L gt
 
+" Command
+    set showcmd                         " Show inputting command
+
