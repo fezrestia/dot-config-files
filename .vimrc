@@ -25,6 +25,7 @@ set shiftwidth=4
     set incsearch                       " Incremental search
     set nowrapscan                      " Search from Top of File after End
     set ignorecase                      " Ignore CASE/case
+    set smartcase                       " Case sensitive if seach word includes large case
 
 " Cursor
     set ruler                           " Cursor ruler
