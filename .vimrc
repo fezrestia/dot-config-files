@@ -32,6 +32,7 @@ set shiftwidth=4
     set scrolloff=8                     " Start scroll before cursor reaches to screen end
     set cursorline                      " Cursor line highlight
 "    set cursorcolumn                    " Cursor column highlight
+    set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
 "   Autocmd
         autocmd WinEnter * setlocal cursorline
 "        autocmd WinEnter * setlocal cursorcolumn
