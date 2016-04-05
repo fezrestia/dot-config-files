@@ -16,7 +16,8 @@ alias grep='grep --color=auto'
 autoload -U compinit
 compinit
 zstyle ':completion:*' menu select=2 # Tab key navigation
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color option
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # No case sensitive
 setopt AUTO_LIST # Show list on single tab key click
 setopt AUTO_MENU # Select option by tab key
 setopt LIST_TYPES # Show file type
