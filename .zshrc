@@ -1,5 +1,8 @@
 # .zshrc
 
+# Lang
+export LANG=en_EN.UTF-8
+
 # Auto Completion
 autoload -U compinit
 compinit
