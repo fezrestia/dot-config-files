@@ -31,9 +31,9 @@ set shiftwidth=4
     set virtualedit=block               " Move cursor to anywhere even if there is no charactor
 "   Shortcut Key
 "       Home/End
-            inoremap    <C-h>       <Esc>^i
+            inoremap    <C-h>       <Esc>0i
             inoremap    <C-l>       <Esc>$i
-            noremap     <C-h>       <Esc>^
+            noremap     <C-h>       <Esc>0
             noremap     <C-l>       <Esc>$
 "       PageUp/Down
             noremap     <C-k>       <Esc><C-b>
