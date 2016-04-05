@@ -77,6 +77,7 @@ set shiftwidth=4
     let g:netrw_alto=1                  " Open file at bottom side by 'o'
 
 " Tab
+    set showtabline=2                   " Always show tab line
     " Move to left tab
         map H gT
     " Move to right tab
