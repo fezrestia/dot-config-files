@@ -3,10 +3,15 @@
 # Lang
 export LANG=en_EN.UTF-8
 
+# Colors
+autoload -U colors
+colors
+
 # Auto Completion
 autoload -U compinit
 compinit
-zstyle ':completion:*:default' menu select=1 # Tab key navigation
+zstyle ':completion:*' menu select=2 # Tab key navigation
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 setopt AUTO_LIST # Show list on single tab key click
 setopt AUTO_MENU # Select option by tab key
 setopt LIST_TYPES # Show file type
@@ -20,10 +25,6 @@ setopt SHARE_HISTORY # Share history among all console
 setopt APPEND_HISTORY # Append history instead of over write
 setopt INC_APPEND_HISTORY # Add history immediately
 setopt EXTENDED_HISTORY # Add timestamp to history
-
-# Colors
-autoload -Uz colors
-colors
 
 # Prompt UI
 setopt PROMPT_SUBST # Enable script in prompt
