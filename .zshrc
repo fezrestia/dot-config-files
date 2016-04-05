@@ -51,3 +51,6 @@ esac
 # Dir Name
 setopt MARK_DIRS # Add / after dir name
 
+# Print 2-bytes code
+setopt PRINT_EIGHT_BIT
+
