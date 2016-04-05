@@ -7,6 +7,11 @@ export LANG=en_EN.UTF-8
 autoload -U colors
 colors
 
+# Aliases
+alias ls='ls -A --color=auto'
+alias lsa='ls -a -l --color=auto'
+alias grep='grep --color=auto'
+
 # Auto Completion
 autoload -U compinit
 compinit
