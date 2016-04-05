@@ -14,11 +14,12 @@ setopt LIST_TYPES # Show file type
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=1000 # History lines size on RAM
-SAVEHIST=1000 # History lines size in HISTFILE
+SAVEHIST=1000000 # History lines size in HISTFILE
 setopt HIST_IGNORE_ALL_DUPS # Do not store same history
 setopt SHARE_HISTORY # Share history among all console
 setopt APPEND_HISTORY # Append history instead of over write
 setopt INC_APPEND_HISTORY # Add history immediately
+setopt EXTENDED_HISTORY # Add timestamp to history
 
 # Colors
 autoload -Uz colors
@@ -46,4 +47,7 @@ case "${TERM}" in
         }
         ;;
 esac
+
+# Dir Name
+setopt MARK_DIRS # Add / after dir name
 
