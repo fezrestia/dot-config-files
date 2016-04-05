@@ -6,7 +6,10 @@ export LANG=en_EN.UTF-8
 # Auto Completion
 autoload -U compinit
 compinit
-zstyle ':completion:*' menu select # Tab key navigation
+zstyle ':completion:*:default' menu select=1 # Tab key navigation
+setopt AUTO_LIST # Show list on single tab key click
+setopt AUTO_MENU # Select option by tab key
+setopt LIST_TYPES # Show file type
 
 # History
 HISTFILE=~/.zsh_history
