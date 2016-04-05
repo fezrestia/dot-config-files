@@ -28,6 +28,7 @@ set shiftwidth=4
     set cursorline                      " Cursor line highlight
 "    set cursorcolumn                    " Cursor column highlight
     set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
+    set virtualedit=block               " Move cursor to anywhere even if there is no charactor
 "   Shortcut Key
 "       Home/End
             inoremap    <C-h>       <Esc>^i
