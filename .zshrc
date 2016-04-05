@@ -7,7 +7,7 @@ export LANG=en_EN.UTF-8
 autoload -U colors
 colors
 
-# Aliases
+# Command Alias
 alias ls='ls -A --color=auto'
 alias lsa='ls -a -l --color=auto'
 alias grep='grep --color=auto'
@@ -60,4 +60,9 @@ setopt MARK_DIRS # Add / after dir name
 
 # Print 2-bytes code
 setopt PRINT_EIGHT_BIT
+
+# Directory Navigation
+setopt AUTO_CD # Only directory name to move
+alias ...='cd ../../'
+alias ....='cd ../../../'
 
