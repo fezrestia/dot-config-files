@@ -36,12 +36,12 @@ setopt EXTENDED_HISTORY # Add timestamp to history
 setopt PROMPT_SUBST # Enable script in prompt
 case ${UID} in
     0 ) # Root
-        PROMPT="%{$fg_bold[red]%}ENTER >%{$reset_color%}/%~/$ "
+        PROMPT="%{$fg_bold[red]%}ENTER>%{$reset_color%}/%~/$ "
         RPROMPT="%{$fg[red]%}%n@%M%{$reset_color%}"
         ;;
 
     * )
-        PROMPT="%{$fg_bold[red]%}ENTER >%{$reset_color%}/%~/$ "
+        PROMPT="%{$fg_bold[red]%}ENTER>%{$reset_color%}/%~/$ "
         RPROMPT="%{$fg[green]%}%n@%M%{$reset_color%}"
         ;;
 esac
@@ -50,7 +50,7 @@ esac
 case "${TERM}" in
     xterm* | kterm* )
         precmd() {
-            echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+            echo -ne "\033]0;${USER}@${HOST%%.*} : ${PWD}\007"
         }
         ;;
 esac
