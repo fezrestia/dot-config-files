@@ -11,6 +11,7 @@ autoload -U colors
 colors
 
 # Command Alias
+setopt COMPLETE_ALIASES # Alias can support auto completion
 alias ls='ls -A --color=auto'
 alias lsa='ls -a -l --color=auto'
 alias grep='grep --color=auto'
