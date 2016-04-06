@@ -81,3 +81,6 @@ setopt AUTO_PUSHD # Always store directory, Tap TAB key after "cd -"
 # Auto Correct
 setopt CORRECT # Command auto correction
 
+# No Beep
+setopt NOLISTBEEP # Do not play beep sound
+
