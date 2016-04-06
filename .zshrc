@@ -26,6 +26,7 @@ setopt AUTO_LIST # Show list on single tab key click
 setopt AUTO_MENU # Select option by tab key
 setopt LIST_TYPES # Show file type
 setopt LIST_PACKED # Show list without large space
+setopt NOAUTOREMOVESLASH # Do not remove slash after dir name
 
 # History
 HISTFILE=~/.zsh_history
