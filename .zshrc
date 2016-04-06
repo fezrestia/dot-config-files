@@ -77,3 +77,6 @@ alias ...='cd ../../'
 alias ....='cd ../../../'
 setopt AUTO_PUSHD # Always store directory, Tap TAB key after "cd -"
 
+# Auto Correct
+setopt CORRECT # Command auto correction
+
