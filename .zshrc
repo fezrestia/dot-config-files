@@ -3,6 +3,9 @@
 # Lang
 export LANG=en_EN.UTF-8
 
+# Key Bind
+bindkey -v # VI like key bind
+
 # Colors
 autoload -U colors
 colors
