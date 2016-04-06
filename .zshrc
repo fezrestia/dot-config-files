@@ -75,4 +75,5 @@ setopt PRINT_EIGHT_BIT
 setopt AUTO_CD # Only directory name to move
 alias ...='cd ../../'
 alias ....='cd ../../../'
+setopt AUTO_PUSHD # Always store directory, Tap TAB key after "cd -"
 
