@@ -24,6 +24,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # No case sensitive
 setopt AUTO_LIST # Show list on single tab key click
 setopt AUTO_MENU # Select option by tab key
 setopt LIST_TYPES # Show file type
+setopt LIST_PACKED # Show list without large space
 
 # History
 HISTFILE=~/.zsh_history
