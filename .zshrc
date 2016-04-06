@@ -35,6 +35,13 @@ setopt APPEND_HISTORY # Append history instead of over write
 setopt INC_APPEND_HISTORY # Add history immediately
 setopt EXTENDED_HISTORY # Add timestamp to history
 
+# History Search
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
 # Prompt UI
 setopt PROMPT_SUBST # Enable script in prompt
 case ${UID} in
