@@ -43,6 +43,9 @@ set shiftwidth=4
             inoremap    <C-y>       <Esc><C-r>i
 "       Remove Search Highlight
             noremap     <Esc><Esc>  :noh<CR>
+"       De-indent
+            inoremap    <S-Tab>     <Esc><S-v><S-<>i
+            noremap     <S-Tab>     <S-v><S-<>
 "   Autocmd
         autocmd WinEnter * setlocal cursorline
 "        autocmd WinEnter * setlocal cursorcolumn
