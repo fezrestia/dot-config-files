@@ -1,0 +1,33 @@
+[user]
+    name = < NAME >
+    email = < MAIL >
+
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    branch = auto
+
+[alias]
+    co = checkout
+    br = branch
+    cm = commit
+    st = status
+    dif = diff
+    unstage = reset HEAD --
+    last = log -1 HEAD
+
+[core]
+    repositoryformatversion = 0
+    bare = false
+    filemode = true
+    logallrefupdates = true
+    ignorecase = true
+    hideDotFiles = dotGitOnly
+    autoCRLF = input
+    quotepath = false
+
+[remote "origin"]
+    url = https://github.com/fezrestia/< GIT REPO NAME >.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+
