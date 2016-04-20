@@ -1,3 +1,9 @@
+# .gitconfig
+#
+# ~/.gitconfig : Global Setting
+# .git/config  : Git local setting
+
+# Maybe override in local setting
 [user]
     name = < NAME >
     email = < MAIL >
@@ -16,6 +22,8 @@
     dif = diff
     unstage = reset HEAD --
     last = log -1 HEAD
+    k = log --all --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)<%an>%C(reset)' --graph --abbrev-commit
+    klocal = log  --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)<%an>%C(reset)' --graph --abbrev-commit
 
 [core]
     repositoryformatversion = 0
@@ -27,6 +35,7 @@
     autoCRLF = input
     quotepath = false
 
+# Override in local setting
 [remote "origin"]
     url = https://github.com/fezrestia/< GIT REPO NAME >.git
     fetch = +refs/heads/*:refs/remotes/origin/*
