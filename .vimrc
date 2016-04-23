@@ -79,12 +79,45 @@ set shiftwidth=4
     let g:netrw_altv=1                  " Open file at right side by 'v'
     let g:netrw_alto=1                  " Open file at bottom side by 'o'
 
-" Tab
+" Tab page
     set showtabline=2                   " Always show tab line
     " Move to left tab
         map H gT
     " Move to right tab
         map L gt
+
+    " Each tab label
+    function! EachTabLabel(n)
+        " Buffer name
+        let buflist = tabpagebuflist(a:n)
+        let winnr = tabpagewinnr(a:n)
+        let bufname = bufname(buflist[winnr - 1])
+        return '[' . a:n . ']' .  bufname
+    endfunction
+
+    " Total tab line
+    function! TotalTabLine()
+        let s = ''
+
+        for i in range(tabpagenr('$')) " Total tab page count
+            " background highlight
+            if (i + 1) == tabpagenr() " Current tab
+                let s .= '%#TabLineSel#'
+            else
+                let s .= '%#TabLine#'
+            endif
+
+            " Each tab label.
+            let s .= EachTabLabel(i + 1)
+            let s .= ' '
+        endfor
+
+        " Blank area.
+        let s .= '%#TabLineFill#'
+
+        return s
+    endfunction
+    set tabline=%!TotalTabLine()
 
 " Command
     set showcmd                         " Show inputting command
