@@ -92,6 +92,17 @@ set shiftwidth=4
         let buflist = tabpagebuflist(a:n)
         let winnr = tabpagewinnr(a:n)
         let bufname = bufname(buflist[winnr - 1])
+
+        " Check netrw
+        "TODO: Consider to refer to path (dir or file)
+        let length = strlen(bufname)
+        if 16 < length
+            let substr = bufname[0 : 15]
+            if 'NetrwTreeListing' == substr
+                let bufname = '/'
+            endif
+        endif
+
         return '[' . a:n . ']' .  bufname
     endfunction
 
