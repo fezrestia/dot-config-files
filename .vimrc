@@ -78,6 +78,7 @@ set shiftwidth=4
     let g:netrw_liststyle=3             " Tree style
     let g:netrw_altv=1                  " Open file at right side by 'v'
     let g:netrw_alto=1                  " Open file at bottom side by 'o'
+    let g:netrw_browse_split=3          " Always open file on new tab
 
 " Tab page
     set showtabline=2                   " Always show tab line
