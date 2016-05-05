@@ -34,6 +34,7 @@
     hideDotFiles = dotGitOnly
     autoCRLF = input
     quotepath = false
+    editor = vi
 
 # Override in local setting
 [remote "origin"]
