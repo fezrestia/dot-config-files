@@ -134,3 +134,7 @@ set shiftwidth=4
 " Command
     set showcmd                         " Show inputting command
 
+" Beep sound
+    set visualbell t_vb=
+    set noerrorbells
+
