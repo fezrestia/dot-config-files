@@ -4,9 +4,9 @@
 # .git/config  : Git local setting
 
 # Maybe override in local setting
-[user]
-    name = < NAME >
-    email = < MAIL >
+#[user]
+#    name = < NAME >
+#    email = < MAIL >
 
 [color]
     ui = auto
@@ -37,7 +37,7 @@
     editor = vi
 
 # Override in local setting
-[remote "origin"]
-    url = https://github.com/fezrestia/< GIT REPO NAME >.git
-    fetch = +refs/heads/*:refs/remotes/origin/*
+#[remote "origin"]
+#    url = https://github.com/fezrestia/< GIT REPO NAME >.git
+#    fetch = +refs/heads/*:refs/remotes/origin/*
 
