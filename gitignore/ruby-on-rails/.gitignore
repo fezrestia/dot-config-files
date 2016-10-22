@@ -17,6 +17,9 @@
 # Ignore all tempraly files.
 /tmp/
 
+# Ignore private secretes files.
+.env_secrets
+
 # Ignore unnecessary files.
 doc/
 *.swp
@@ -24,5 +27,4 @@ doc/
 .project
 .DS_Store
 .idea
-.secret
 
