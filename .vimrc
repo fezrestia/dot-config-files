@@ -48,10 +48,13 @@ set shiftwidth=4
             inoremap    <S-Tab>     <Esc><S-v><S-<>i
             noremap     <S-Tab>     <S-v><S-<>
 "   Autocmd
-        autocmd WinEnter * setlocal cursorline
-"        autocmd WinEnter * setlocal cursorcolumn
-        autocmd WinLeave * setlocal nocursorline
-"        autocmd WinLeave * setlocal nocursorcolumn
+        augroup WinEnterLeave
+            autocmd!
+            autocmd WinEnter * setlocal cursorline
+"            autocmd WinEnter * setlocal cursorcolumn
+            autocmd WinLeave * setlocal nocursorline
+"            autocmd WinLeave * setlocal nocursorcolumn
+        augroup END
 
 " Syntax
     syntax enable                       " Syntax color
