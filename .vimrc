@@ -156,5 +156,29 @@ set shiftwidth=4
 " Status line
     set laststatus=2                    " Always status line ON
     set showmode                        " Show current mode
-    set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+
+    " Insert/Normal mode change callback.
+    if has('syntax')
+        augroup InsertHook
+            " Remove all command related to InsertHook.
+            autocmd!
+            " Register callbacks.
+            autocmd InsertEnter * call s:CustomStatusLine('enter')
+            autocmd InsertLeave * call s:CustomStatusLine('leave')
+        augroup END
+    endif
+
+    " Customize status line.
+    function! s:CustomStatusLine(mode)
+        if a:mode ==# 'enter'
+            silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+            hi StatusLine cterm=NONE ctermbg=red ctermfg=white
+        elseif a:mode ==# 'leave'
+            silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+            hi StatusLine cterm=NONE ctermbg=black ctermfg=white
+        endif
+    endfunction
+
+    " Initialize
+    call s:CustomStatusLine('leave')
 
