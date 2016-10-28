@@ -185,3 +185,10 @@ set shiftwidth=4
     " Initialize
     call s:CustomStatusLine('leave')
 
+    " To take effec lighlight after ESC immediately.
+    if has('unix') && !has('gui_running')
+        set notimeout
+        set ttimeout
+        set timeoutlen=30
+    endif
+
