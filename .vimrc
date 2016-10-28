@@ -134,6 +134,8 @@ set shiftwidth=4
 
 " Command
     set showcmd                         " Show inputting command
+    set wildmenu                        " Store command history
+    set history=2000                    " Command history max
 
 " Beep sound
     set visualbell t_vb=
