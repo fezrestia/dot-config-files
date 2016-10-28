@@ -153,3 +153,8 @@ set shiftwidth=4
         endif
     endif
 
+" Status line
+    set laststatus=2                    " Always status line ON
+    set showmode                        " Show current mode
+    set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+
