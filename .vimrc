@@ -104,11 +104,14 @@ set shiftwidth=4
         if 16 < length
             let substr = bufname[0 : 15]
             if 'NetrwTreeListing' == substr
-                let bufname = '/'
+                " This is explorer tab.
+                return '/'
             endif
         endif
 
-        return '[' . a:n . ']' .  bufname
+        " Show file name only.
+        let l:filename = fnamemodify(bufname, ':t') " Get filename only
+        return '[' . a:n . ']' .  l:filename
     endfunction
 
     " Total tab line
