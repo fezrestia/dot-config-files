@@ -92,6 +92,11 @@ set shiftwidth=4
     " Move to right tab
         map L gt
 
+    " Highlight for TabLine.
+    highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLineSel    cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+
     " Each tab label
     function! EachTabLabel(n)
         " Buffer name
@@ -179,10 +184,10 @@ set shiftwidth=4
     function! s:CustomStatusLine(mode)
         if a:mode ==# 'enter'
             silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
-            hi StatusLine cterm=NONE ctermbg=red ctermfg=white
+            highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
         elseif a:mode ==# 'leave'
             silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
-            hi StatusLine cterm=NONE ctermbg=black ctermfg=white
+            highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
         endif
     endfunction
 
