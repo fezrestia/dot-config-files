@@ -93,9 +93,15 @@ set shiftwidth=4
         map L gt
 
     " Highlight for TabLine.
-    highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
-    highlight TabLineSel    cterm=NONE  ctermbg=white   ctermfg=black
-    highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+    if &background == 'dark'
+        highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
+        highlight TabLineSel    cterm=NONE  ctermbg=black   ctermfg=white
+        highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
+    else " background == light
+        highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
+        highlight TabLineSel    cterm=NONE  ctermbg=white   ctermfg=black
+        highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+    endif
 
     " Each tab label
     function! EachTabLabel(n)
@@ -187,7 +193,11 @@ set shiftwidth=4
             highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
         elseif a:mode ==# 'leave'
             silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
-            highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
+            if &background == 'dark'
+                highlight StatusLine cterm=NONE ctermbg=white ctermfg=black
+            else
+                highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
+            endif
         endif
     endfunction
 
