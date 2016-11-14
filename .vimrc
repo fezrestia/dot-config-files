@@ -95,11 +95,11 @@ set shiftwidth=4
     " Highlight for TabLine.
     if &background == 'dark'
         highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
-        highlight TabLineSel    cterm=NONE  ctermbg=black   ctermfg=white
+        highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
         highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
     else " background == light
         highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
-        highlight TabLineSel    cterm=NONE  ctermbg=white   ctermfg=black
+        highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
         highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
     endif
 
