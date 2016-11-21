@@ -14,6 +14,15 @@
 set tabstop=4
 set expandtab
 set shiftwidth=4
+" Control indent width by file extension.
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufRead,BufNewFile *.rb         setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yml        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2
+augroup END
 
 " Searh
     set hlsearch                        " Hightlight search result
