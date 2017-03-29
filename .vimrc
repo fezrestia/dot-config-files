@@ -220,3 +220,12 @@ augroup END
         set timeoutlen=30
     endif
 
+
+
+" End of .vimrc
+" Load local properties.
+" Place ~/.vimrc_local file on local environment.
+if filereadable(expand($HOME.'/.vimrc_local'))
+    source $HOME/.vimrc_local
+endif
+
