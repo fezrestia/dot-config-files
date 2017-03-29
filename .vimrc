@@ -35,7 +35,7 @@ set smartcase                       " Case sensitive if seach word includes larg
 " Cursor
 set ruler                           " Cursor ruler
 set number                          " Line number
-set scrolloff=8                     " Start scroll before cursor reaches to screen end
+set scrolloff=4                     " Start scroll before cursor reaches to screen end
 set cursorline                      " Cursor line highlight
 "set cursorcolumn                    " Cursor column highlight
 set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
