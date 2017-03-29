@@ -1,19 +1,20 @@
 ".vimrc
 
 " Encoding
-    set encoding=utf-8
-    scriptencoding utf-8
+set encoding=utf-8
+scriptencoding utf-8
 
 " Disable Key Mapping
-    nnoremap    ZZ          <Nop>
-    nnoremap    ZQ          <Nop>
-    nnoremap    J           <Nop>
-    nnoremap    K           <Nop>
+nnoremap    ZZ          <Nop>
+nnoremap    ZQ          <Nop>
+nnoremap    J           <Nop>
+nnoremap    K           <Nop>
 
 " Tab
 set tabstop=4
 set expandtab
 set shiftwidth=4
+
 " Control indent width by file extension.
 augroup fileTypeIndent
     autocmd!
@@ -25,200 +26,201 @@ augroup fileTypeIndent
 augroup END
 
 " Searh
-    set hlsearch                        " Hightlight search result
-    set incsearch                       " Incremental search
-    set nowrapscan                      " Search from Top of File after End
-    set ignorecase                      " Ignore CASE/case
-    set smartcase                       " Case sensitive if seach word includes large case
+set hlsearch                        " Hightlight search result
+set incsearch                       " Incremental search
+set nowrapscan                      " Search from Top of File after End
+set ignorecase                      " Ignore CASE/case
+set smartcase                       " Case sensitive if seach word includes large case
 
 " Cursor
-    set ruler                           " Cursor ruler
-    set number                          " Line number
-    set scrolloff=8                     " Start scroll before cursor reaches to screen end
-    set cursorline                      " Cursor line highlight
-"    set cursorcolumn                    " Cursor column highlight
-    set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
-    set virtualedit=block               " Move cursor to anywhere even if there is no charactor
-"   Shortcut Key
-"       Home/End
-            inoremap    <C-h>       <Esc>0i
-            inoremap    <C-l>       <Esc>$i
-            noremap     <C-h>       <Esc>0
-            noremap     <C-l>       <Esc>$
-"       PageUp/Down
-            noremap     <C-k>       <Esc><C-b>
-            noremap     <C-j>       <Esc><C-f>
-"       UnDo/ReDo
-            inoremap    <C-z>       <Esc>ui
-            inoremap    <C-y>       <Esc><C-r>i
-"       Remove Search Highlight
-            noremap     <Esc><Esc>  :noh<CR>
-"       De-indent
-            inoremap    <S-Tab>     <Esc><S-v><S-<>i
-            noremap     <S-Tab>     <S-v><S-<>
-"   Autocmd
-        augroup WinEnterLeave
-            autocmd!
-            autocmd WinEnter * setlocal cursorline
-"            autocmd WinEnter * setlocal cursorcolumn
-            autocmd WinLeave * setlocal nocursorline
-"            autocmd WinLeave * setlocal nocursorcolumn
-        augroup END
+set ruler                           " Cursor ruler
+set number                          " Line number
+set scrolloff=8                     " Start scroll before cursor reaches to screen end
+set cursorline                      " Cursor line highlight
+"set cursorcolumn                    " Cursor column highlight
+set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
+set virtualedit=block               " Move cursor to anywhere even if there is no charactor
+
+" Shortcut Key
+" Home/End
+inoremap    <C-h>       <Esc>0i
+inoremap    <C-l>       <Esc>$i
+noremap     <C-h>       <Esc>0
+noremap     <C-l>       <Esc>$
+" PageUp/Down
+noremap     <C-k>       <Esc><C-b>
+noremap     <C-j>       <Esc><C-f>
+" UnDo/ReDo
+inoremap    <C-z>       <Esc>ui
+inoremap    <C-y>       <Esc><C-r>i
+" Remove Search Highlight
+noremap     <Esc><Esc>  :noh<CR>
+" De-indent
+inoremap    <S-Tab>     <Esc><S-v><S-<>i
+noremap     <S-Tab>     <S-v><S-<>
+" Autocmd
+augroup WinEnterLeave
+    autocmd!
+    autocmd WinEnter * setlocal cursorline
+"    autocmd WinEnter * setlocal cursorcolumn
+    autocmd WinLeave * setlocal nocursorline
+"    autocmd WinLeave * setlocal nocursorcolumn
+    augroup END
 
 " Syntax
-    syntax enable                       " Syntax color
-    set showmatch                       " Show match bracket
+syntax enable                       " Syntax color
+set showmatch                       " Show match bracket
 
 " Invisible Charactors
-    set list                            " Show invisible charactors
-    set listchars=tab:>\ ,trail:#       " Invisible charactors visible pattern
+set list                            " Show invisible charactors
+set listchars=tab:>\ ,trail:#       " Invisible charactors visible pattern
 
 " Auto Refresh Buffer
-    set autoread                        " Auto refresh current buffer
+set autoread                        " Auto refresh current buffer
 
 " Auto Generated Files
-    set nobackup                        " Back up file
-    set noswapfile                      " Swap file
+set nobackup                        " Back up file
+set noswapfile                      " Swap file
 
 " Copy and Paste
-    set clipboard=unnamed               " Use clipboard in common among other apps
+set clipboard=unnamed               " Use clipboard in common among other apps
 
 " IME
-    set iminsert=0                      " IME On/Off in insert mode
-    set imsearch=0                      " IME On/Off in seach mode
+set iminsert=0                      " IME On/Off in insert mode
+set imsearch=0                      " IME On/Off in seach mode
 
 " Explorer netrw
-    let g:netrw_liststyle=3             " Tree style
-    let g:netrw_altv=1                  " Open file at right side by 'v'
-    let g:netrw_alto=1                  " Open file at bottom side by 'o'
-    let g:netrw_browse_split=3          " Always open file on new tab
-    let g:netrw_banner=0                " Do not show banner
+let g:netrw_liststyle=3             " Tree style
+let g:netrw_altv=1                  " Open file at right side by 'v'
+let g:netrw_alto=1                  " Open file at bottom side by 'o'
+let g:netrw_browse_split=3          " Always open file on new tab
+let g:netrw_banner=0                " Do not show banner
 
 " Tab page
-    set showtabline=2                   " Always show tab line
-    " Move to left tab
-        map H gT
-    " Move to right tab
-        map L gt
+set showtabline=2                   " Always show tab line
+" Move to left tab
+map H gT
+" Move to right tab
+map L gt
 
-    " Highlight for TabLine.
-    if &background == 'dark'
-        highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
-        highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-        highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
-    else " background == light
-        highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
-        highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
-        highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+" Highlight for TabLine.
+if &background == 'dark'
+    highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
+    highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
+else " background == light
+    highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+endif
+
+" Each tab label
+function! EachTabLabel(n)
+    " Buffer name
+    let buflist = tabpagebuflist(a:n)
+    let winnr = tabpagewinnr(a:n)
+    let bufname = bufname(buflist[winnr - 1])
+
+    " Check netrw
+    "TODO: Consider to refer to path (dir or file)
+    let length = strlen(bufname)
+    if 16 < length
+        let substr = bufname[0 : 15]
+        if 'NetrwTreeListing' == substr
+            " This is explorer tab.
+            return '/'
+        endif
     endif
 
-    " Each tab label
-    function! EachTabLabel(n)
-        " Buffer name
-        let buflist = tabpagebuflist(a:n)
-        let winnr = tabpagewinnr(a:n)
-        let bufname = bufname(buflist[winnr - 1])
+    " Show file name only.
+    let l:filename = fnamemodify(bufname, ':t') " Get filename only
+    return '[' . a:n . ']' .  l:filename
+endfunction
 
-        " Check netrw
-        "TODO: Consider to refer to path (dir or file)
-        let length = strlen(bufname)
-        if 16 < length
-            let substr = bufname[0 : 15]
-            if 'NetrwTreeListing' == substr
-                " This is explorer tab.
-                return '/'
-            endif
+" Total tab line
+function! TotalTabLine()
+    let s = ''
+
+    for i in range(tabpagenr('$')) " Total tab page count
+        " background highlight
+        if (i + 1) == tabpagenr() " Current tab
+            let s .= '%#TabLineSel#'
+        else
+            let s .= '%#TabLine#'
         endif
 
-        " Show file name only.
-        let l:filename = fnamemodify(bufname, ':t') " Get filename only
-        return '[' . a:n . ']' .  l:filename
-    endfunction
+        " Each tab label.
+        let s .= EachTabLabel(i + 1)
+        let s .= ' '
+    endfor
 
-    " Total tab line
-    function! TotalTabLine()
-        let s = ''
+    " Blank area.
+    let s .= '%#TabLineFill#'
 
-        for i in range(tabpagenr('$')) " Total tab page count
-            " background highlight
-            if (i + 1) == tabpagenr() " Current tab
-                let s .= '%#TabLineSel#'
-            else
-                let s .= '%#TabLine#'
-            endif
-
-            " Each tab label.
-            let s .= EachTabLabel(i + 1)
-            let s .= ' '
-        endfor
-
-        " Blank area.
-        let s .= '%#TabLineFill#'
-
-        return s
-    endfunction
-    set tabline=%!TotalTabLine()
+    return s
+endfunction
+set tabline=%!TotalTabLine()
 
 " Command
-    set showcmd                         " Show inputting command
-    set wildmenu                        " Store command history
-    set history=2000                    " Command history max
+set showcmd                         " Show inputting command
+set wildmenu                        " Store command history
+set history=2000                    " Command history max
 
 " Beep sound
-    set visualbell t_vb=
-    set noerrorbells
+set visualbell t_vb=
+set noerrorbells
 
 " Mouse
-    if has('mouse')
-        set mouse=a
-        if has('mouse_sgr')
-            set ttymouse=sgr
-        elseif v:version > 703 && has('patch632')
-            set ttymouse=sgr
-        else
-            set ttymouse=xterm2
-        endif
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
     endif
+endif
 
 " Status line
-    set laststatus=2                    " Always status line ON
-    set showmode                        " Show current mode
+set laststatus=2                    " Always status line ON
+set showmode                        " Show current mode
 
-    " Insert/Normal mode change callback.
-    if has('syntax')
-        augroup InsertHook
-            " Remove all command related to InsertHook.
-            autocmd!
-            " Register callbacks.
-            autocmd InsertEnter * call s:CustomStatusLine('enter')
-            autocmd InsertLeave * call s:CustomStatusLine('leave')
-        augroup END
-    endif
+" Insert/Normal mode change callback.
+if has('syntax')
+    augroup InsertHook
+        " Remove all command related to InsertHook.
+        autocmd!
+        " Register callbacks.
+        autocmd InsertEnter * call s:CustomStatusLine('enter')
+        autocmd InsertLeave * call s:CustomStatusLine('leave')
+    augroup END
+endif
 
-    " Customize status line.
-    function! s:CustomStatusLine(mode)
-        if a:mode ==# 'enter'
-            silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
-            highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
-        elseif a:mode ==# 'leave'
-            silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
-            if &background == 'dark'
-                highlight StatusLine cterm=NONE ctermbg=white ctermfg=black
-            else
-                highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
-            endif
+" Customize status line.
+function! s:CustomStatusLine(mode)
+    if a:mode ==# 'enter'
+        silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
+    elseif a:mode ==# 'leave'
+        silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        if &background == 'dark'
+            highlight StatusLine cterm=NONE ctermbg=white ctermfg=black
+        else
+            highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
         endif
-    endfunction
-
-    " Initialize
-    call s:CustomStatusLine('leave')
-
-    " To take effec lighlight after ESC immediately.
-    if has('unix') && !has('gui_running')
-        set notimeout
-        set ttimeout
-        set timeoutlen=30
     endif
+endfunction
+
+" Initialize
+call s:CustomStatusLine('leave')
+
+" To take effec lighlight after ESC immediately.
+if has('unix') && !has('gui_running')
+    set notimeout
+    set ttimeout
+    set timeoutlen=30
+endif
 
 
 
