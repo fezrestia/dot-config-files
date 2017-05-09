@@ -23,6 +23,7 @@ augroup fileTypeIndent
     autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2
 augroup END
 
 " Searh
