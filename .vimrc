@@ -222,6 +222,11 @@ if has('unix') && !has('gui_running')
     set timeoutlen=30
 endif
 
+" Remove tail spaces before save.
+autocmd BufWritePre * :%s/\s\+$//ge
+
+
+
 
 
 " End of .vimrc
