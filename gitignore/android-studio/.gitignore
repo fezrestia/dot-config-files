@@ -10,6 +10,7 @@
 # Build outputs and intermediates
 build/
 */build/
+.externalNativeBuild/
 
 # Local environment related
 local.properties
