@@ -8,6 +8,9 @@
 #    name = < NAME >
 #    email = < MAIL >
 
+[include]
+    path = .gitconfig_local
+
 [color]
     ui = auto
     diff = auto
