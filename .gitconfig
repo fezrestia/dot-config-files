@@ -44,6 +44,14 @@
 [diff]
     compactionHeuristic = true
 
+[pager]
+    log  = (diff-highlight 2>/dev/null || cat) | ${PAGER:-less}
+    show = (diff-highlight 2>/dev/null || cat) | ${PAGER:-less}
+    diff = (diff-highlight 2>/dev/null || cat) | ${PAGER:-less}
+
+[interactive]
+    diffFilter = (diff-highlight 2>/dev/null || cat)
+
 # Override in local setting
 #[remote "origin"]
 #    url = https://github.com/fezrestia/< GIT REPO NAME >.git
