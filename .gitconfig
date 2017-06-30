@@ -41,6 +41,9 @@
     precomposeunicode = true
     editor = vi
 
+[diff]
+    compactionHeuristic = true
+
 # Override in local setting
 #[remote "origin"]
 #    url = https://github.com/fezrestia/< GIT REPO NAME >.git
