@@ -35,6 +35,7 @@
     hideDotFiles = dotGitOnly
     autoCRLF = input
     quotepath = false
+    precomposeunicode = true
     editor = vi
 
 # Override in local setting
