@@ -1,7 +1,8 @@
 # .zshrc
 
-# Lang
+# Environmental Variables
 export LANG=en_EN.UTF-8
+export EDITOR=vi
 
 # Key Bind
 bindkey -v # VI like key bind
