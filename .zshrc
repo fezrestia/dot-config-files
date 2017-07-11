@@ -32,7 +32,10 @@ setopt NOAUTOREMOVESLASH # Do not remove slash after dir name
 HISTFILE=~/.zsh_history
 HISTSIZE=1000 # History lines size on RAM
 SAVEHIST=1000000 # History lines size in HISTFILE
-setopt HIST_IGNORE_ALL_DUPS # Do not store same history
+setopt HIST_IGNORE_DUPS # Do not store repeated same command to history
+setopt HIST_SAVE_NODUPS # Do not store dup command to history
+setopt HIST_NO_STORE # Do not store "history" command
+setopt HIST_REDUCE_BLANKS # Split head/tail white spaces
 setopt SHARE_HISTORY # Share history among all console
 setopt APPEND_HISTORY # Append history instead of over write
 setopt INC_APPEND_HISTORY # Add history immediately
