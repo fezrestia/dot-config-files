@@ -48,6 +48,12 @@ set cursorline                      " Cursor line highlight
 set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
 set virtualedit=block               " Move cursor to anywhere even if there is no charactor
 
+" View-based cursor move when line is soft-wrapped.
+nnoremap j gj
+nnoremap k gk
+nnoremap <down> gj
+nnoremap <up> gk
+
 " Shortcut Key
 " Home/End
 inoremap    <C-h>       <Esc>0i
