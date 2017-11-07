@@ -283,6 +283,19 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck " Check for uninstalled plug-ins.
 
+" VIM CP Scouter.
+command! Scouter call Scouter()
+function! Scouter()
+    let vimrc_file = expand('~/.vimrc')
+    let line_count = 0
+    for line in readfile(vimrc_file)
+        let line_count += 1
+    endfor
+
+    echon ".vimrc lines count = "
+    echon line_count
+endfunction
+
 
 
 
