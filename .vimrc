@@ -250,12 +250,13 @@ if has('unix') && !has('gui_running')
 endif
 
 " Remove tail spaces before save.
-autocmd BufWritePre * :%s/\s\+$//ge
-
-
+augroup RemoveTailSpace
+    autocmd!
+    autocmd BufWritePre * :%s/\s\+$//ge
+augroup END
 
 " Plug-INs.
-if has('vim_starting')
+if has('vim_starting') " Only on first load.
     set runtimepath+=~/.vim/bundle/neobundle.vim " Path setting.
 
     " If NeoBundle is not installed yet, git clone it.
@@ -295,6 +296,10 @@ function! Scouter()
     echon ".vimrc lines count = "
     echon line_count
 endfunction
+
+" Open .vimrc and reload .vimrc immediately.
+nnoremap <F2>   :<C-u>tabedit $MYVIMRC<CR>
+nnoremap <F5>   :<C-u>source $MYVIMRC<CR>
 
 
 
