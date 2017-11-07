@@ -277,6 +277,9 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 
 " Indent line.
 NeoBundle 'Yggdroot/indentLine'
+let g:indentLine_color_term = 8
+let g:indentLine_char = '¦'
+noremap     <C-i>   :IndentLinesToggle<CR>
 
 
 
