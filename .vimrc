@@ -47,6 +47,10 @@ set cursorline                      " Cursor line highlight
 "set cursorcolumn                    " Cursor column highlight
 set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
 set virtualedit=block               " Move cursor to anywhere even if there is no charactor
+set showmatch                       " Show matched bracket for a while.
+
+" Cursor jump to matched bracket by '%' key.
+source $VIMRUNTIME/macros/matchit.vim
 
 " View-based cursor move when line is soft-wrapped.
 nnoremap j gj
@@ -82,7 +86,6 @@ augroup WinEnterLeave
 
 " Syntax
 syntax enable                       " Syntax color
-set showmatch                       " Show match bracket
 
 " Invisible Charactors
 set list                            " Show invisible charactors
