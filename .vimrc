@@ -264,8 +264,8 @@ if has('vim_starting') " Only on first load.
     " TODO: Consider proxy environment.
     if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
         echo "Now on Installing NeoBundle..."
-        :call system("mkdir ~/.vim/bundle/neobundle.vim")
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+        call system("mkdir ~/.vim/bundle/neobundle.vim")
+        call system("git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
     endif
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
