@@ -57,6 +57,9 @@ set showmatch                       " Show matched bracket for a while.
 set noautoindent                    " Cursor is always on line-head after return.
 set nosmartindent                   " Cursor is always on line-head after return.
 
+" Auto insertions. Disable auto comment out insert.
+autocmd BufEnter * set formatoptions=
+
 " Cursor jump to matched bracket by '%' key.
 source $VIMRUNTIME/macros/matchit.vim
 
