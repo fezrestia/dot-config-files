@@ -6,6 +6,9 @@ set nocompatible
 " Encoding
 set encoding=utf-8
 scriptencoding utf-8
+set fileencoding=utf-8 " Encoding on file save.
+set fileformats=unix,dos,mac " CR/LF auto detection.
+set ambiwidth=double " Double byte glyph code.
 
 " Disable Key Mapping
 nnoremap    ZZ          <Nop>
