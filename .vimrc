@@ -23,7 +23,7 @@ set shiftwidth=4
 
 " Disable default indent behavior.
 function! GetVimIndent()
-    " NOP
+    return -1 " Keep current indent.
 endfunction
 set indentexpr=%!GetVimIndent()
 
