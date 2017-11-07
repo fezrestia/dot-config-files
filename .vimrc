@@ -273,6 +273,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Visualize tail white spaces.
 NeoBundle 'bronson/vim-trailing-whitespace'
 
+" Indent line.
+NeoBundle 'Yggdroot/indentLine'
+
 
 
 " >>>>>> Plug-INs to HERE
