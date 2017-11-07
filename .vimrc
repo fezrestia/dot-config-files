@@ -21,6 +21,12 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 
+" Disable default indent behavior.
+function! GetVimIndent()
+    " NOP
+endfunction
+set indentexpr=%!GetVimIndent()
+
 " Control indent width by file extension.
 augroup fileTypeIndent
     autocmd!
@@ -48,6 +54,8 @@ set cursorline                      " Cursor line highlight
 set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
 set virtualedit=block               " Move cursor to anywhere even if there is no charactor
 set showmatch                       " Show matched bracket for a while.
+set noautoindent                    " Cursor is always on line-head after return.
+set nosmartindent                   " Cursor is always on line-head after return.
 
 " Cursor jump to matched bracket by '%' key.
 source $VIMRUNTIME/macros/matchit.vim
