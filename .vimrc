@@ -305,6 +305,9 @@ endfunction
 nnoremap <F2>   :<C-u>tabedit $MYVIMRC<CR>
 nnoremap <F5>   :<C-u>source $MYVIMRC<CR>
 
+" Open netrw from command line.
+command! Dir :Texplore
+
 
 
 
