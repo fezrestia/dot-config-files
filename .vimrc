@@ -25,7 +25,10 @@ set shiftwidth=4
 function! GetVimIndent()
     return -1 " Keep current indent.
 endfunction
-set indentexpr=%!GetVimIndent()
+augroup updateIndentExpr
+    autocmd!
+    autocmd BufEnter * setlocal indentexpr=%!GetVimIndent()
+augroup END
 
 " Control indent width by file extension.
 augroup fileTypeIndent
