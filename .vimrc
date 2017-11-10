@@ -114,7 +114,7 @@ set nobackup                        " Back up file
 set noswapfile                      " Swap file
 
 " Copy and Paste
-set clipboard=unnamed               " Use clipboard in common among other apps
+set clipboard=unnamed,unnamedplus   " Use clipboard in common among other apps
 
 " IME
 set iminsert=0                      " IME On/Off in insert mode
