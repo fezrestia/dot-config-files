@@ -82,6 +82,9 @@ noremap     <C-l>       <Esc>$
 " PageUp/Down
 noremap     <C-k>       <Esc><C-b>
 noremap     <C-j>       <Esc><C-f>
+" Cursor jump
+noremap     <S-k>       kkkkkkkkkk
+noremap     <S-j>       jjjjjjjjjj
 " UnDo/ReDo
 inoremap    <C-z>       <Esc>ui
 inoremap    <C-y>       <Esc><C-r>i
