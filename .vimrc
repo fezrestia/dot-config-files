@@ -10,6 +10,9 @@ set fileencoding=utf-8 " Encoding on file save.
 set fileformats=unix,dos,mac " CR/LF auto detection.
 set ambiwidth=double " Double byte glyph code.
 
+" End of file control.
+set nofixendofline " Do not add <EOL> after last line.
+
 " Disable Key Mapping
 nnoremap    ZZ          <Nop>
 nnoremap    ZQ          <Nop>
