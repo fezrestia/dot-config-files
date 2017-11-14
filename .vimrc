@@ -83,8 +83,8 @@ noremap     <C-l>       <Esc>$
 noremap     <C-k>       <Esc><C-b>
 noremap     <C-j>       <Esc><C-f>
 " Cursor jump
-noremap     <S-k>       kkkkkkkkkk
-noremap     <S-j>       jjjjjjjjjj
+noremap     <S-k>       10k
+noremap     <S-j>       10j
 " UnDo/ReDo
 inoremap    <C-z>       <Esc>ui
 inoremap    <C-y>       <Esc><C-r>i
