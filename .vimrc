@@ -30,6 +30,11 @@ augroup updateIndentExpr
     autocmd BufEnter * setlocal indentexpr=%!GetVimIndent()
 augroup END
 
+" Soft-wrap.
+set breakindent
+set breakindentopt=shift:8,sbr
+set showbreak=->
+
 " Control indent width by file extension.
 augroup fileTypeIndent
     autocmd!
