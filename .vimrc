@@ -211,6 +211,7 @@ set history=2000                    " Command history max
 " Beep sound
 set visualbell t_vb=
 set noerrorbells
+set belloff=all
 
 " Mouse
 if has('mouse')
