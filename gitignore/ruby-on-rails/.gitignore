@@ -15,8 +15,12 @@
 !/log/.keep
 
 # Ignore all tempraly files.
-/tmp/
+/tmp/*
+!/tmp/.keep
 /public/assets/
+/node_modules
+/yarn-error.log
+.byebug_history
 
 # Ignore private secretes files.
 .env_secrets.yml
