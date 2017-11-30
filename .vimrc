@@ -48,6 +48,8 @@ augroup fileTypeIndent
     autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.rake       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.coffee     setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.scss       setlocal tabstop=2 shiftwidth=2
 augroup END
 
 " Auto code styler.
