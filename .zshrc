@@ -34,6 +34,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000 # History lines size on RAM
 SAVEHIST=1000000 # History lines size in HISTFILE
 setopt HIST_IGNORE_DUPS # Do not store repeated same command to history
+setopt HIST_IGNORE_SPACE # Do not store the cmd started with space
 setopt HIST_SAVE_NODUPS # Do not store dup command to history
 setopt HIST_NO_STORE # Do not store "history" command
 setopt HIST_REDUCE_BLANKS # Split head/tail white spaces
