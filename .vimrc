@@ -304,6 +304,14 @@ let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 noremap     <C-i>   :IndentLinesToggle<CR>
 
+" Coffee Script.
+NeoBundle 'kchmck/vim-coffee-script'
+augroup SetupCoffeeScriptPlugin
+    autocmd!
+    autocmd BufRead,BufNewFile,BufReadPre *.coffee  set filetype=coffee
+    autocmd FileType coffee                         setlocal tabstop=2 shiftwidth=2
+augroup END
+
 
 
 " >>>>>> Plug-INs to HERE
