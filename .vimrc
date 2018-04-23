@@ -312,6 +312,16 @@ augroup SetupCoffeeScriptPlugin
     autocmd FileType coffee                         setlocal tabstop=2 shiftwidth=2
 augroup END
 
+" TypeScript.
+NeoBundle 'leafgarland/typescript-vim'
+augroup SetupTypeScriptPlugin
+    autocmd!
+    autocmd BufRead,BufNewFile *.ts set filetype=typescript
+augroup END
+
+
+
+
 
 
 " >>>>>> Plug-INs to HERE
