@@ -28,6 +28,7 @@
     k = log --all --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)<%an>%C(reset)' --graph --abbrev-commit
     klocal = log  --pretty=format:'%C(red)%h%C(reset) -%C(yellow)%d%C(reset) %s %C(green)(%cr) %C(bold blue)<%an>%C(reset)' --graph --abbrev-commit
     addname = add . -N
+    cp = cherry-pick
 
 [core]
     repositoryformatversion = 0
