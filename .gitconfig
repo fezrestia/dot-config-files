@@ -40,7 +40,7 @@
     autoCRLF = input
     quotepath = false
     precomposeunicode = true
-    editor = vi
+    editor = vim
 
 [diff]
     compactionHeuristic = true
