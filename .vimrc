@@ -350,6 +350,8 @@ endfunction
 " Open .vimrc and reload .vimrc immediately.
 nnoremap <F2>   :<C-u>tabedit $MYVIMRC<CR>
 nnoremap <F5>   :<C-u>source $MYVIMRC<CR>
+" Escape for PuTTY, it considering F1-F4 as other key sequence.
+nnoremap <F6>   :<C-u>tabedit $MYVIMRC<CR>
 
 " Open netrw from command line.
 command! Dir :Texplore
