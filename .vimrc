@@ -189,7 +189,7 @@ function! EachTabLabel(n)
 
     " Show file name only.
     let l:filename = fnamemodify(bufname, ':t') " Get filename only
-    return '[' . a:n . ']' .  l:filename
+    return ' ' . l:filename . ' '
 endfunction
 
 " Total tab line
@@ -206,7 +206,6 @@ function! TotalTabLine()
 
         " Each tab label.
         let s .= EachTabLabel(i + 1)
-        let s .= ' '
     endfor
 
     " Blank area.
