@@ -179,7 +179,7 @@ function! EachTabLabel(n)
     " Check netrw
     "TODO: Consider to refer to path (dir or file)
     let length = strlen(bufname)
-    if 16 < length
+    if 16 <= length
         let substr = bufname[0 : 15]
         if 'NetrwTreeListing' == substr
             " This is explorer tab.
