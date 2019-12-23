@@ -317,14 +317,11 @@ augroup SetupCoffeeScriptPlugin
 augroup END
 
 " TypeScript.
-NeoBundle 'leafgarland/typescript-vim'
-augroup SetupTypeScriptPlugin
-    autocmd!
-    autocmd BufRead,BufNewFile *.ts set filetype=typescript
-augroup END
-
-
-
+if !isdirectory(expand("~/.vim/pack/typescript/start/typescript-vim"))
+    echo "Now on Installing typescript-vim ..."
+    call system("mkdir ~/.vim/pack/typescript/start/typescript-vim")
+    call system("git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim")
+endif
 
 
 
