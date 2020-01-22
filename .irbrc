@@ -2,15 +2,12 @@
 
 require 'rubygems'
 
-# Completion on TAB, auto coloring.
-require 'wirble'
-Wirble.init
-Wirble.colorize
-
 # History.
-IRB.conf[:HISTORY_FILE] = '~/.irb_history'
+require 'irb/ext/save-history'
 IRB.conf[:SAVE_HISTORY] = 1000
-IRB.conf[:EVAL_HISTORY] = 100 # Use __[line_no]
+IRB.conf[:EVAL_HISTORY] = 100
+IRB.conf[:USE_READLINE] = true
+IRB.conf[:HISTORY_PATH] = File.expand_path('~/.irb_history')
 
 # Indent.
 IRB.conf[:AUTO_INDENT] = false
@@ -24,6 +21,11 @@ IRB.conf[:PROMPT][:CUSTOM_PROMPT] = {
     :RETURN   => "   => %s \n"
 }
 IRB.conf[:PROMPT_MODE] = :CUSTOM_PROMPT
+
+# Completion and colorize.
+require 'wirble'
+Wirble.init
+Wirble.colorize
 
 
 
