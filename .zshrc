@@ -93,3 +93,9 @@ setopt CORRECT # Command auto correction
 # No Beep
 setopt NOLISTBEEP # Do not play beep sound
 
+# Disable scroll stop mode (CTRL+S/CTRL+Q)
+if [[ -t 0 ]]; then
+    stty stop undef
+    stty start undef
+fi
+
