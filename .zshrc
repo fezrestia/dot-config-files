@@ -16,6 +16,7 @@ setopt COMPLETE_ALIASES # Alias can support auto completion
 alias ls='ls -A -F --color=auto'
 alias lsa='ls -a -l -F --color=auto'
 alias lsd='lsa | grep -e ^d'
+alias lst='lsa -t -r --time-style long-iso' # order: old->new
 alias grep='grep --color=auto'
 
 # Auto Completion
