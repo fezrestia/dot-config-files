@@ -4,9 +4,9 @@
 # .git/config  : Git local setting
 
 # Maybe override in local setting
-[user]
-    name = Aki.SHIMO.
-    email = fezrestia@gmail.com
+#[user]
+#    name = Aki.SHIMO.
+#    email = fezrestia@gmail.com
 
 [include]
     path = .gitconfig_local
