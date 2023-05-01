@@ -1,7 +1,7 @@
 # .zshrc
 
 # Environmental Variables
-export LANG=en_EN.UTF-8
+export LANG=en_US.UTF-8
 export EDITOR=vi
 
 # Key Bind
