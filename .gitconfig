@@ -53,6 +53,12 @@
 [interactive]
     diffFilter = (diff-highlight 2>/dev/null || cat)
 
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
 # Override in local setting
 #[remote "origin"]
 #    url = https://github.com/fezrestia/< GIT REPO NAME >.git
