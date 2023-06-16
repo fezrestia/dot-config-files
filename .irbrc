@@ -39,7 +39,7 @@ def pwd
   puts Dir.pwd
 end
 
-def ls
+def lsa
   elms = `ls -a -l -F`
   elms.each_line { |elm|
     puts "  #{elm}"
