@@ -338,6 +338,18 @@ if !isdirectory(expand("~/.vim/pack/typescript/start/typescript-vim"))
     call system("git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim")
 endif
 
+" Search hit num pop up.
+NeoBundle 'obcat/vim-hitspop'
+set hlsearch
+let g:hitspop_line = 'wintop'
+let g:hitspop_column = 'winright'
+highlight link hitspopNormal StatusLine
+highlight link hitspopErrorMsg StatusLine
+set updatetime=100  " disappear popup after highlight is gone
+
+
+
+
 
 
 " >>>>>> Plug-INs to HERE
