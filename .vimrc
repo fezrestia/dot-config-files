@@ -175,9 +175,9 @@ map L gt
 
 " Highlight for TabLine.
 if &background == 'dark'
-    highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLine       cterm=NONE  ctermbg=gray   ctermfg=black
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-    highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=gray   ctermfg=black
 else " background == light
     highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
@@ -275,7 +275,7 @@ function! s:CustomStatusLine(mode)
     elseif a:mode ==# 'leave'
         silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
-            highlight StatusLine cterm=NONE ctermbg=white ctermfg=black
+            highlight StatusLine cterm=NONE ctermbg=gray ctermfg=black
         else
             highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
         endif
