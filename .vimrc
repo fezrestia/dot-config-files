@@ -347,6 +347,26 @@ highlight link hitspopNormal StatusLine
 highlight link hitspopErrorMsg StatusLine
 set updatetime=100  " disappear popup after highlight is gone
 
+" Highlight current word and same word.
+NeoBundle 'dominikduda/vim_current_word'
+let g:vim_current_word#enabled = 1
+let g:vim_current_word#highlight_twins = 1  " highlight same word under cursor
+let g:vim_current_word#highlight_current_word = 1  " highlight word under cursor
+let g:vim_current_Word#highlight_only_in_focused_window = 1
+let g:vim_current_word#highlight_delay = 500  " delayed [ms]
+if &background == 'dark'
+    highlight CurrentWord ctermfg=NONE ctermbg=237 cterm=NONE
+    highlight CurrentWordTwins ctermfg=NONE ctermbg=237 cterm=NONE
+else
+    highlight CurrentWord ctermfg=NONE ctermbg=250 cterm=NONE
+    highlight CurrentWordTwins ctermfg=NONE ctermbg=250 cterm=NONE
+endif
+augroup SetupCurrentWord
+    autocmd!
+    autocmd BufAdd *.txt,*.md :let b:vim_current_word_disabled_in_this_buffer = 1  " disabled file type
+    autocmd BufAdd CMakeLists.txt :let b:vim_current_word_disabled_in_this_buffer = 0  " enabled exception
+augroup END
+
 
 
 
