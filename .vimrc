@@ -1,5 +1,12 @@
 ".vimrc
 
+" Start of .vimrc
+" Load local properties.
+" Place ~/.vimrc_local file on local environment. (e.g. set background)
+if filereadable(expand($HOME.'/.vimrc_local'))
+    source $HOME/.vimrc_local
+endif
+
 " Only for VI IMproved.
 set nocompatible
 
@@ -366,9 +373,9 @@ command! Dir :Texplore
 
 
 " End of .vimrc
-" Load local properties.
-" Place ~/.vimrc_local file on local environment.
-if filereadable(expand($HOME.'/.vimrc_local'))
-    source $HOME/.vimrc_local
+" Load override properties.
+" Place ~/.vimrc_override file for local environment.
+if filereadable(expand($HOME.'/.vimrc_override'))
+    source $HOME/.vimrc_override
 endif
 
