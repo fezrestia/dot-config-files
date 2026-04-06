@@ -374,6 +374,20 @@ let g:sclow_hide_full_length = 1  " Do not show scroll bar when all lines in scr
 let g:sclow_auto_hide = 1000  " Hide scroll bar in timeout [ms]
 highlight link SclowSbar CurrentWord
 
+" Highlight matched brackets.
+NeoBundle 'luochen1990/rainbow'
+let g:rainbow_active = 0  " disabled in default
+let g:rainbow_conf = {
+\   'ctermfgs': [21, 39, 51, 46, 226, 208, 196],
+\   'cterms': ['bold'],
+\   'separately': {
+\       '*': {},
+\       'text': 0,
+\       'markdown': 0,
+\   },
+\}
+nnoremap b :RainbowToggle<CR>
+
 
 
 
