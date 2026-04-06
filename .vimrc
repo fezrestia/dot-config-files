@@ -299,6 +299,7 @@ augroup RemoveTailSpace
 augroup END
 
 " Plug-INs.
+set updatetime=300  " event triggered in [ms] after cursor stopped
 if has('vim_starting') " Only on first load.
     set runtimepath+=~/.vim/bundle/neobundle.vim " Path setting.
 
@@ -346,7 +347,6 @@ let g:hitspop_line = 'wintop'
 let g:hitspop_column = 'winright'
 highlight link hitspopNormal StatusLine
 highlight link hitspopErrorMsg StatusLine
-set updatetime=100  " disappear popup after highlight is gone
 
 " Highlight current word and same word.
 NeoBundle 'dominikduda/vim_current_word'
@@ -367,6 +367,12 @@ augroup SetupCurrentWord
     autocmd BufAdd *.txt,*.md :let b:vim_current_word_disabled_in_this_buffer = 1  " disabled file type
     autocmd BufAdd CMakeLists.txt :let b:vim_current_word_disabled_in_this_buffer = 0  " enabled exception
 augroup END
+
+" Show scroll bar.
+NeoBundle 'obcat/vim-sclow'
+let g:sclow_hide_full_length = 1  " Do not show scroll bar when all lines in screen.
+let g:sclow_auto_hide = 1000  " Hide scroll bar in timeout [ms]
+highlight link SclowSbar CurrentWord
 
 
 
