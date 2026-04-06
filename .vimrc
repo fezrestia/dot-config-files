@@ -150,6 +150,14 @@ let g:netrw_altv=1                  " Open file at right side by 'v'
 let g:netrw_alto=1                  " Open file at bottom side by 'o'
 let g:netrw_browse_split=3          " Always open file on new tab
 let g:netrw_banner=0                " Do not show banner
+let g:netrw_keepdir=1               " Block change directory
+let g:netrw_mousemaps=0             " Disable mouse event
+nnoremap e :Lexplore<CR>
+
+" WORKAROUND : netrw tree view may be corrupted by focus granted event.
+"              so, disable focus grant/loss vent.
+set t_fe=
+set t_fd=
 
 " Tab page
 set showtabline=2                   " Always show tab line
