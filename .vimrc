@@ -270,10 +270,10 @@ endif
 " Customize status line.
 function! s:CustomStatusLine(mode)
     if a:mode ==# 'enter'
-        silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        silent set statusline=[INSERT]\ FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
     elseif a:mode ==# 'leave'
-        silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
             highlight StatusLine cterm=NONE ctermbg=gray ctermfg=black
         else
@@ -387,6 +387,43 @@ let g:rainbow_conf = {
 \   },
 \}
 nnoremap b :RainbowToggle<CR>
+
+" Syntax check. ( :ALEInfo for debug )
+NeoBundle 'dense-analysis/ale'
+" apt install clangd
+let g:ale_linters = {
+\   'c': ['clangd'],
+\   'cpp': ['clangd'],
+\}
+let g:ale_root = {
+\   '*': ['.git'],
+\}
+let g:ale_c_build_dir = 'build'  " override for each env
+function! GenCompileCommandsJson()
+    " override for each env
+endfunction
+let g:ale_lint_on_text_changed = 'never'  " block lint during editing
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save = 1
+let g:ale_sign_error = 'E:'  " left edge sign
+let g:ale_sign_warning = 'W:'  " left edeg sign
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
+function! AleStatusLine() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_warnings = l:counts.warning + l:counts.style_warning + l:counts.info
+    let l:total = l:all_errors + l:all_warnings
+    return l:total == 0 ? 'ALE=OK' : printf('ALE=E:%d/W:%d', l:all_errors, l:all_warnings)
+endfunction
+nnoremap <silent> m :ALENext<CR>
+nnoremap <silent> <S-m> :ALEPrevious<CR>
+let g:ale_set_highlights = 1
+highlight ALEWarningSign    ctermbg=11  ctermfg=0   " yellow
+highlight ALEWarning        ctermbg=3   ctermfg=0   " yellow
+highlight ALEErrorSign      ctermbg=9   ctermfg=15  " red
+highlight ALEError          ctermbg=1   ctermfg=15  " red
 
 
 
