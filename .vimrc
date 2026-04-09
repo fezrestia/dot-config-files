@@ -443,13 +443,23 @@ NeoBundleCheck " Check for uninstalled plug-ins.
 command! Scouter call Scouter()
 function! Scouter()
     let vimrc_file = expand('~/.vimrc')
-    let line_count = 0
+    let total = 0
+    let valid = 0
+    let comment = 0
+    let empty = 0
     for line in readfile(vimrc_file)
-        let line_count += 1
+        let total += 1
+        if line =~# '^\s*"'
+            let comment += 1
+        elseif line =~# '^\s*$'
+            let empty += 1
+        else
+            let valid += 1
+        endif
     endfor
 
-    echon ".vimrc lines count = "
-    echon line_count
+    echon printf('.vimrc | Valid+Comment+Empty/Total LINES = %d+%d+%d/%d',
+    \       valid, comment, empty, total)
 endfunction
 
 " Open .vimrc and reload .vimrc immediately.
