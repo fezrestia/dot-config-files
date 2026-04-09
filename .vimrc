@@ -159,7 +159,6 @@ let g:netrw_browse_split=3          " Always open file on new tab
 let g:netrw_banner=0                " Do not show banner
 let g:netrw_keepdir=1               " Block change directory
 let g:netrw_mousemaps=0             " Disable mouse event
-nnoremap e :Lexplore<CR>
 
 " WORKAROUND : netrw tree view may be corrupted by focus granted event.
 "              so, disable focus grant/loss vent.
@@ -428,6 +427,44 @@ highlight ALEWarningSign    ctermbg=11  ctermfg=0   " yellow
 highlight ALEWarning        ctermbg=3   ctermfg=0   " yellow
 highlight ALEErrorSign      ctermbg=9   ctermfg=15  " red
 highlight ALEError          ctermbg=1   ctermfg=15  " red
+
+" Fern filer to replace netrw.
+NeoBundle 'lambdalisue/vim-fern', {'rev': 'main'}
+let g:fern#default_hidden = 1  " show hidden file
+let g:fern#hide_cursor = 1  " hide cursor on fern buffer
+let g:fern#disable_default_mappings = 1
+nnoremap e :Fern . -opener=tabedit -reveal=%<CR>
+function! FernMoveCursorToParentNode() abort
+    let l:cur_indent = indent('.')
+    while search('^\s*|-\s', 'b')  " backward search open dir '|-'
+      let l:idt = indent('.')
+      if l:idt < l:cur_indent || l:idt ==# 0
+        break
+      endif
+    endwhile
+endfunction
+function! s:initialize_custom_fern() abort
+    nnoremap <buffer><nowait> h :call FernMoveCursorToParentNode()<CR>
+
+    " for file, closed dir, opened dir
+    nnoremap <buffer><expr> l fern#smart#leaf(
+    \       "",
+    \       "\<Plug>(fern-action-expand:stay)",
+    \       "")
+
+    " for file, closed dir, opened dir
+    nnoremap <buffer><expr> <CR> fern#smart#leaf(
+    \       "\<Plug>(fern-action-open:tabedit)",
+    \       "\<Plug>(fern-action-expand:stay)",
+    \       "\<Plug>(fern-action-collapse)")
+
+    " open on own tab
+    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)
+endfunction
+augroup FernCustomOnOpened
+    autocmd!
+    autocmd FileType fern call s:initialize_custom_fern()
+augroup END
 
 
 
