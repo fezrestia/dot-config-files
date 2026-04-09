@@ -390,6 +390,7 @@ nnoremap b :RainbowToggle<CR>
 
 " Syntax check. ( :ALEInfo for debug )
 NeoBundle 'dense-analysis/ale'
+let g:ale_enabled = 1
 " apt install clangd
 let g:ale_linters = {
 \   'c': ['clangd'],
@@ -411,6 +412,9 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
 function! AleStatusLine() abort
+    if g:ale_enabled != 1
+      return 'ALE=N/A'
+    endif
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_warnings = l:counts.warning + l:counts.style_warning + l:counts.info
