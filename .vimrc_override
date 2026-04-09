@@ -1,0 +1,14 @@
+" .vimrc_override
+"
+" Add vim config for local environment.
+" This file will be loaded at the end of .vimrc by source cmd,
+" so, these configs will not be used for .vimrc config logic.
+" Use this file to override result of .vimrc config logic.
+" (e.g. override function implementation defined in .vimrc)
+
+
+
+function! GenCompileCommandsJson()
+    echo "override GetCompileCommandsJson()"
+endfunction
+

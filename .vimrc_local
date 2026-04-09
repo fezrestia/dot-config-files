@@ -1,0 +1,11 @@
+" .vimrc_local
+"
+" Add vim config for local environment.
+" This file will be loaded on top of .vimrc by source cmd,
+" and these config will be used for .vimrc config logic.
+" (e.g. highlight definition depends on background config)
+
+
+
+"set background=dark
+
