@@ -478,8 +478,8 @@ function! s:initialize_custom_fern() abort
     \       "\<Plug>(fern-action-expand:stay)",
     \       "\<Plug>(fern-action-collapse)")
 
-    " open on own tab
-    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)
+    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)  " open on own tab
+    nnoremap <buffer><nowait> <F5> <Plug>(fern-action-reload)
 endfunction
 augroup FernCustomOnOpened
     autocmd!
