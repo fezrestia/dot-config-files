@@ -390,6 +390,19 @@ nnoremap b :RainbowToggle<CR>
 " Syntax check. ( :ALEInfo for debug )
 NeoBundle 'dense-analysis/ale'
 let g:ale_enabled = 1
+let g:ale_linters_explicit = 1  " if linter is N/A, disable ALE
+function! s:ale_setup()
+    let l:linters = ale#linter#Get(&filetype)
+    if empty(l:linters)
+        " No linters, disable.
+        let b:ale_enabled = 0
+        set signcolumn=auto
+    else
+        let b:ale_enabled = 1
+        set signcolumn=yes  " always show left edge sign area
+    endif
+endfunction
+autocmd FileType,BufEnter * call s:ale_setup()
 " apt install clangd
 let g:ale_linters = {
 \   'c': ['clangd'],
@@ -411,7 +424,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
 function! AleStatusLine() abort
-    if g:ale_enabled != 1
+    if b:ale_enabled != 1 || g:ale_enabled != 1
       return 'ALE=N/A'
     endif
     let l:counts = ale#statusline#Count(bufnr(''))
