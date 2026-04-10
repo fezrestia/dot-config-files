@@ -486,6 +486,9 @@ augroup FernCustomOnOpened
     autocmd FileType fern call s:initialize_custom_fern()
 augroup END
 
+" Fern replace default netrw.
+NeoBundle 'lambdalisue/vim-fern-hijack'
+
 
 
 
