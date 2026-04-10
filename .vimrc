@@ -1,5 +1,12 @@
 ".vimrc
 
+" Start of .vimrc
+" Load local properties.
+" Place ~/.vimrc_local file on local environment. (e.g. set background)
+if filereadable(expand($HOME.'/.vimrc_local'))
+    source $HOME/.vimrc_local
+endif
+
 " Only for VI IMproved.
 set nocompatible
 
@@ -152,7 +159,6 @@ let g:netrw_browse_split=3          " Always open file on new tab
 let g:netrw_banner=0                " Do not show banner
 let g:netrw_keepdir=1               " Block change directory
 let g:netrw_mousemaps=0             " Disable mouse event
-nnoremap e :Lexplore<CR>
 
 " WORKAROUND : netrw tree view may be corrupted by focus granted event.
 "              so, disable focus grant/loss vent.
@@ -168,9 +174,9 @@ map L gt
 
 " Highlight for TabLine.
 if &background == 'dark'
-    highlight TabLine       cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLine       cterm=NONE  ctermbg=gray   ctermfg=black
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-    highlight TabLineFill   cterm=NONE  ctermbg=white   ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=gray   ctermfg=black
 else " background == light
     highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
@@ -179,10 +185,12 @@ endif
 
 " Each tab label
 function! EachTabLabel(n)
-    " Buffer name
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let bufname = bufname(buflist[winnr - 1])
+    " Buffer name, type
+    let l:buflist = tabpagebuflist(a:n)
+    let l:buf = l:buflist[0]
+    let l:buf_filetype = getbufvar(l:buf, '&filetype')
+    let winnr = tabpagewinnr(a:n)  " active window number
+    let bufname = bufname(buflist[winnr - 1])  " active buf name
 
     " Check netrw
     "TODO: Consider to refer to path (dir or file)
@@ -193,6 +201,11 @@ function! EachTabLabel(n)
             " This is explorer tab.
             return '/'
         endif
+    endif
+
+    " check fern
+    if l:buf_filetype ==# 'fern'
+        return '/'
     endif
 
     " Show file name only.
@@ -263,12 +276,12 @@ endif
 " Customize status line.
 function! s:CustomStatusLine(mode)
     if a:mode ==# 'enter'
-        silent set statusline=[INSERT]\ FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        silent set statusline=[INSERT]\ FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
     elseif a:mode ==# 'leave'
-        silent set statusline=FILE=%F%m%=LINE=%l/%L\ \ COL=%c
+        silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
-            highlight StatusLine cterm=NONE ctermbg=white ctermfg=black
+            highlight StatusLine cterm=NONE ctermbg=gray ctermfg=black
         else
             highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
         endif
@@ -292,6 +305,7 @@ augroup RemoveTailSpace
 augroup END
 
 " Plug-INs.
+set updatetime=300  " event triggered in [ms] after cursor stopped
 if has('vim_starting') " Only on first load.
     set runtimepath+=~/.vim/bundle/neobundle.vim " Path setting.
 
@@ -314,6 +328,7 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'Yggdroot/indentLine'
 let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
+let g:indentLine_enabled = 0  " default disabled
 noremap     <C-i>   :IndentLinesToggle<CR>
 
 " Coffee Script.
@@ -331,6 +346,152 @@ if !isdirectory(expand("~/.vim/pack/typescript/start/typescript-vim"))
     call system("git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim")
 endif
 
+" Search hit num pop up.
+NeoBundle 'obcat/vim-hitspop'
+set hlsearch
+let g:hitspop_line = 'wintop'
+let g:hitspop_column = 'winright'
+highlight link hitspopNormal StatusLine
+highlight link hitspopErrorMsg StatusLine
+
+" Highlight current word and same word.
+NeoBundle 'dominikduda/vim_current_word'
+let g:vim_current_word#enabled = 1
+let g:vim_current_word#highlight_twins = 1  " highlight same word under cursor
+let g:vim_current_word#highlight_current_word = 1  " highlight word under cursor
+let g:vim_current_Word#highlight_only_in_focused_window = 1
+let g:vim_current_word#highlight_delay = 500  " delayed [ms]
+if &background == 'dark'
+    highlight CurrentWord ctermfg=NONE ctermbg=237 cterm=NONE
+    highlight CurrentWordTwins ctermfg=NONE ctermbg=237 cterm=NONE
+else
+    highlight CurrentWord ctermfg=NONE ctermbg=250 cterm=NONE
+    highlight CurrentWordTwins ctermfg=NONE ctermbg=250 cterm=NONE
+endif
+augroup SetupCurrentWord
+    autocmd!
+    autocmd BufAdd *.txt,*.md :let b:vim_current_word_disabled_in_this_buffer = 1  " disabled file type
+    autocmd BufAdd CMakeLists.txt :let b:vim_current_word_disabled_in_this_buffer = 0  " enabled exception
+augroup END
+
+" Show scroll bar.
+NeoBundle 'obcat/vim-sclow'
+let g:sclow_hide_full_length = 1  " Do not show scroll bar when all lines in screen.
+let g:sclow_auto_hide = 1000  " Hide scroll bar in timeout [ms]
+highlight link SclowSbar CurrentWord
+
+" Highlight matched brackets.
+NeoBundle 'luochen1990/rainbow'
+let g:rainbow_active = 0  " disabled in default
+let g:rainbow_conf = {
+\   'ctermfgs': [21, 39, 51, 46, 226, 208, 196],
+\   'cterms': ['bold'],
+\   'separately': {
+\       '*': {},
+\       'text': 0,
+\       'markdown': 0,
+\   },
+\}
+nnoremap b :RainbowToggle<CR>
+
+" Syntax check. ( :ALEInfo for debug )
+NeoBundle 'dense-analysis/ale'
+let g:ale_enabled = 1
+let g:ale_linters_explicit = 1  " if linter is N/A, disable ALE
+function! s:ale_setup()
+    let l:linters = ale#linter#Get(&filetype)
+    if empty(l:linters)
+        " No linters, disable.
+        let b:ale_enabled = 0
+        set signcolumn=auto
+    else
+        let b:ale_enabled = 1
+        set signcolumn=yes  " always show left edge sign area
+    endif
+endfunction
+autocmd FileType,BufEnter * call s:ale_setup()
+" apt install clangd
+let g:ale_linters = {
+\   'c': ['clangd'],
+\   'cpp': ['clangd'],
+\}
+let g:ale_root = {
+\   '*': ['.git'],
+\}
+let g:ale_c_build_dir = 'build'  " override for each env
+function! GenCompileCommandsJson()
+    " override for each env
+endfunction
+let g:ale_lint_on_text_changed = 'never'  " block lint during editing
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_save = 1
+let g:ale_sign_error = 'E:'  " left edge sign
+let g:ale_sign_warning = 'W:'  " left edeg sign
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
+function! AleStatusLine() abort
+    if b:ale_enabled != 1 || g:ale_enabled != 1
+      return 'ALE=N/A'
+    endif
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_warnings = l:counts.warning + l:counts.style_warning + l:counts.info
+    let l:total = l:all_errors + l:all_warnings
+    return l:total == 0 ? 'ALE=OK' : printf('ALE=E:%d/W:%d', l:all_errors, l:all_warnings)
+endfunction
+nnoremap <silent> m :ALENext<CR>
+nnoremap <silent> <S-m> :ALEPrevious<CR>
+let g:ale_set_highlights = 1
+highlight ALEWarningSign    ctermbg=11  ctermfg=0   " yellow
+highlight ALEWarning        ctermbg=3   ctermfg=0   " yellow
+highlight ALEErrorSign      ctermbg=9   ctermfg=15  " red
+highlight ALEError          ctermbg=1   ctermfg=15  " red
+
+" Fern filer to replace netrw.
+NeoBundle 'lambdalisue/vim-fern', {'rev': 'main'}
+let g:fern#default_hidden = 1  " show hidden file
+let g:fern#hide_cursor = 1  " hide cursor on fern buffer
+let g:fern#disable_default_mappings = 1
+nnoremap e :Fern . -opener=tabedit -reveal=%<CR>
+function! FernMoveCursorToParentNode() abort
+    let l:cur_indent = indent('.')
+    while search('^\s*|-\s', 'b')  " backward search open dir '|-'
+      let l:idt = indent('.')
+      if l:idt < l:cur_indent || l:idt ==# 0
+        break
+      endif
+    endwhile
+endfunction
+function! s:initialize_custom_fern() abort
+    nnoremap <buffer><nowait> h :call FernMoveCursorToParentNode()<CR>
+
+    " for file, closed dir, opened dir
+    nnoremap <buffer><expr> l fern#smart#leaf(
+    \       "",
+    \       "\<Plug>(fern-action-expand:stay)",
+    \       "")
+
+    " for file, closed dir, opened dir
+    nnoremap <buffer><expr> <CR> fern#smart#leaf(
+    \       "\<Plug>(fern-action-open:tabedit)",
+    \       "\<Plug>(fern-action-expand:stay)",
+    \       "\<Plug>(fern-action-collapse)")
+
+    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)  " open on own tab
+    nnoremap <buffer><nowait> <F5> <Plug>(fern-action-reload)
+endfunction
+augroup FernCustomOnOpened
+    autocmd!
+    autocmd FileType fern call s:initialize_custom_fern()
+augroup END
+
+" Fern replace default netrw.
+NeoBundle 'lambdalisue/vim-fern-hijack'
+
+
+
+
 
 
 " >>>>>> Plug-INs to HERE
@@ -342,13 +503,23 @@ NeoBundleCheck " Check for uninstalled plug-ins.
 command! Scouter call Scouter()
 function! Scouter()
     let vimrc_file = expand('~/.vimrc')
-    let line_count = 0
+    let total = 0
+    let valid = 0
+    let comment = 0
+    let empty = 0
     for line in readfile(vimrc_file)
-        let line_count += 1
+        let total += 1
+        if line =~# '^\s*"'
+            let comment += 1
+        elseif line =~# '^\s*$'
+            let empty += 1
+        else
+            let valid += 1
+        endif
     endfor
 
-    echon ".vimrc lines count = "
-    echon line_count
+    echon printf('.vimrc | Valid+Comment+Empty/Total LINES = %d+%d+%d/%d',
+    \       valid, comment, empty, total)
 endfunction
 
 " Open .vimrc and reload .vimrc immediately.
@@ -366,9 +537,9 @@ command! Dir :Texplore
 
 
 " End of .vimrc
-" Load local properties.
-" Place ~/.vimrc_local file on local environment.
-if filereadable(expand($HOME.'/.vimrc_local'))
-    source $HOME/.vimrc_local
+" Load override properties.
+" Place ~/.vimrc_override file for local environment.
+if filereadable(expand($HOME.'/.vimrc_override'))
+    source $HOME/.vimrc_override
 endif
 
