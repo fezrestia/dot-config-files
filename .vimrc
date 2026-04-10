@@ -185,10 +185,12 @@ endif
 
 " Each tab label
 function! EachTabLabel(n)
-    " Buffer name
-    let buflist = tabpagebuflist(a:n)
-    let winnr = tabpagewinnr(a:n)
-    let bufname = bufname(buflist[winnr - 1])
+    " Buffer name, type
+    let l:buflist = tabpagebuflist(a:n)
+    let l:buf = l:buflist[0]
+    let l:buf_filetype = getbufvar(l:buf, '&filetype')
+    let winnr = tabpagewinnr(a:n)  " active window number
+    let bufname = bufname(buflist[winnr - 1])  " active buf name
 
     " Check netrw
     "TODO: Consider to refer to path (dir or file)
@@ -199,6 +201,11 @@ function! EachTabLabel(n)
             " This is explorer tab.
             return '/'
         endif
+    endif
+
+    " check fern
+    if l:buf_filetype ==# 'fern'
+        return '/'
     endif
 
     " Show file name only.
