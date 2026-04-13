@@ -142,6 +142,7 @@ set autoread                        " Auto refresh current buffer
 
 " Auto Generated Files
 set nobackup                        " Back up file
+set nowritebackup
 set noswapfile                      " Swap file
 
 " Copy and Paste
