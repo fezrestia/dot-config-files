@@ -44,6 +44,7 @@ augroup END
 set breakindent
 set breakindentopt=shift:8,sbr
 set showbreak=->
+set display=lastline  " show long line at end of buffer with tail @@@
 
 " Control indent width by file extension.
 augroup fileTypeIndent
