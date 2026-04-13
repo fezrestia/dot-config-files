@@ -178,13 +178,13 @@ map L gt
 
 " Highlight for TabLine.
 if &background == 'dark'
-    highlight TabLine       cterm=NONE  ctermbg=gray   ctermfg=black
+    highlight TabLine       cterm=NONE  ctermbg=8       ctermfg=black
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-    highlight TabLineFill   cterm=NONE  ctermbg=gray   ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=8       ctermfg=black
 else " background == light
-    highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLine       cterm=NONE  ctermbg=7       ctermfg=white
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
-    highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLineFill   cterm=NONE  ctermbg=7       ctermfg=white
 endif
 
 " Each tab label
@@ -286,12 +286,21 @@ function! s:CustomStatusLine(mode)
     elseif a:mode ==# 'leave'
         silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
-            highlight StatusLine cterm=NONE ctermbg=gray ctermfg=black
+            highlight StatusLine    cterm=NONE ctermbg=7 ctermfg=black
+            highlight StatusLineNC  cterm=NONE ctermbg=8 ctermfg=black
         else
-            highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
+            highlight StatusLine    cterm=NONE ctermbg=8 ctermfg=white
+            highlight StatusLineNC  cterm=NONE ctermbg=7 ctermfg=white
         endif
     endif
 endfunction
+
+" Window split line.
+if &background == 'dark'
+    highlight VertSplit ctermbg=gray ctermfg=black
+else
+    highlight VertSplit ctermbg=gray ctermfg=white
+endif
 
 " Initialize
 call s:CustomStatusLine('leave')
