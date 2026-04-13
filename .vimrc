@@ -241,6 +241,7 @@ set tabline=%!TotalTabLine()
 set showcmd                         " Show inputting command
 set wildmenu                        " Store command history
 set history=2000                    " Command history max
+set cmdheight=1                     " Cmd line height
 
 " Beep sound
 set visualbell t_vb=
