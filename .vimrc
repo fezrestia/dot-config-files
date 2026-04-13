@@ -533,6 +533,12 @@ nnoremap <F5>   :<C-u>source $MYVIMRC<CR>
 " Escape for PuTTY, it considering F1-F4 as other key sequence.
 nnoremap <F6>   :<C-u>tabedit $MYVIMRC<CR>
 
+" Auto reload .vimrc
+augroup AutoSourceVimrc
+    autocmd!
+    autocmd BufWritePost .vimrc,.vimrc_* source $MYVIMRC
+augroup END
+
 " Open netrw from command line.
 command! Dir :Texplore
 
