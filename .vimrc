@@ -81,7 +81,6 @@ set incsearch                       " Incremental search
 set nowrapscan                      " Search from Top of File after End
 set ignorecase                      " Ignore CASE/case
 set smartcase                       " Case sensitive if seach word includes large case
-noh " Remove highlight after reload .vimrc
 
 " Cursor
 set ruler                           " Cursor ruler
@@ -324,9 +323,6 @@ augroup OnConsoleResized
     autocmd VimResized * wincmd =
 augroup END
 
-" Initialize
-call s:CustomStatusLine('leave')
-
 " To take effec lighlight after ESC immediately.
 if has('unix') && !has('gui_running')
     set notimeout
@@ -436,6 +432,10 @@ NeoBundle 'dense-analysis/ale'
 let g:ale_enabled = 1
 let g:ale_linters_explicit = 1  " if linter is N/A, disable ALE
 function! s:ale_setup()
+    if !exists(':ALE*')
+        return
+    endif
+
     let l:linters = ale#linter#Get(&filetype)
     if empty(l:linters)
         " No linters, disable.
@@ -468,6 +468,10 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
 function! AleStatusLine() abort
+    if !exists(':ALE*')
+        return
+    endif
+
     if b:ale_enabled != 1 || g:ale_enabled != 1
       return 'ALE=N/A'
     endif
@@ -594,4 +598,11 @@ command! Dir :Texplore
 if filereadable(expand($HOME.'/.vimrc_override'))
     source $HOME/.vimrc_override
 endif
+
+
+
+" Initialize
+noh " Remove highlight after reload .vimrc
+call s:ale_setup()
+call s:CustomStatusLine('leave')
 
