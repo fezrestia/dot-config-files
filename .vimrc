@@ -503,6 +503,15 @@ augroup END
 " Fern replace default netrw.
 NeoBundle 'lambdalisue/vim-fern-hijack'
 
+" Cheat sheet.
+NeoBundle 'liuchengxu/vim-which-key'
+nnoremap <Esc>h :WhichKey ''<CR>
+highlight link WhichKey StatusLineNC
+highlight link WhichKeySeparator StatusLineNC
+highlight link WhichKeyGroup StatusLineNC
+highlight link WhichKeyDesc StatusLineNC
+highlight link WhichKeyFloating StatusLineNC
+
 
 
 
