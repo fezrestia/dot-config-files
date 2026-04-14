@@ -295,12 +295,34 @@ function! s:CustomStatusLine(mode)
     endif
 endfunction
 
-" Window split line.
+" Change window
+nnoremap <Tab>k <C-w>k
+nnoremap <Tab>j <C-w>j
+nnoremap <Tab>h <C-w>h
+nnoremap <Tab>l <C-w>l
+" Split window
+set splitbelow
+set splitright
+nnoremap <Tab>s <C-w>s
+nnoremap <Tab>v <C-w>v
+nnoremap ss :split<CR>
+nnoremap sv :vsplit<CR>
 if &background == 'dark'
     highlight VertSplit ctermbg=gray ctermfg=black
 else
     highlight VertSplit ctermbg=gray ctermfg=white
 endif
+" Resize window
+nnoremap <Tab><up>      :resize -2<CR>
+nnoremap <Tab><down>    :resize +2<CR>
+nnoremap <Tab><left>    :vertical resize -2<CR>
+nnoremap <Tab><right>   :vertical resize +2<CR>
+nnoremap <Tab>=         <C-w>=
+nnoremap <Tab>m         :wincmd _ \| wincmd \|<CR>
+augroup OnConsoleResized
+    autocmd!
+    autocmd VimResized * wincmd =
+augroup END
 
 " Initialize
 call s:CustomStatusLine('leave')
@@ -344,6 +366,7 @@ let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 0  " default disabled
 noremap     <C-i>   :IndentLinesToggle<CR>
+nnoremap    <Tab>   <nop>
 
 " Coffee Script.
 NeoBundle 'kchmck/vim-coffee-script'
