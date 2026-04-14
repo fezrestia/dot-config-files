@@ -27,9 +27,10 @@ nnoremap    J           <Nop>
 nnoremap    K           <Nop>
 
 " Tab
-set tabstop=4
+set tabstop=4  " tab width used for <Tab> char in file.
 set expandtab
-set shiftwidth=4
+set shiftwidth=4  " used for indent.
+set softtabstop=4  " used for <Tab> char input by user.
 
 " Disable default indent behavior.
 function! GetVimIndent()
@@ -44,25 +45,27 @@ augroup END
 set breakindent
 set breakindentopt=shift:8,sbr
 set showbreak=->
+set display=lastline  " show long line at end of buffer with tail @@@
 
 " Control indent width by file extension.
 augroup fileTypeIndent
     autocmd!
-    autocmd BufRead,BufNewFile *.rb         setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.yml        setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.rake       setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.coffee     setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.css        setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.scss       setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile Rakefile     setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.js         setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.jsx        setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.ts         setlocal tabstop=2 shiftwidth=2
-    autocmd BufRead,BufNewFile *.tsx        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.rb         setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.yml        setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.rake       setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.coffee     setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.css        setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.scss       setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile Rakefile     setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.js         setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.jsx        setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.ts         setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.tsx        setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.cpp,*.hpp  setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 
 " Auto code styler.
@@ -78,7 +81,6 @@ set incsearch                       " Incremental search
 set nowrapscan                      " Search from Top of File after End
 set ignorecase                      " Ignore CASE/case
 set smartcase                       " Case sensitive if seach word includes large case
-noh " Remove highlight after reload .vimrc
 
 " Cursor
 set ruler                           " Cursor ruler
@@ -142,6 +144,7 @@ set autoread                        " Auto refresh current buffer
 
 " Auto Generated Files
 set nobackup                        " Back up file
+set nowritebackup
 set noswapfile                      " Swap file
 
 " Copy and Paste
@@ -174,13 +177,13 @@ map L gt
 
 " Highlight for TabLine.
 if &background == 'dark'
-    highlight TabLine       cterm=NONE  ctermbg=gray   ctermfg=black
+    highlight TabLine       cterm=NONE  ctermbg=8       ctermfg=black
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-    highlight TabLineFill   cterm=NONE  ctermbg=gray   ctermfg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=8       ctermfg=black
 else " background == light
-    highlight TabLine       cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLine       cterm=NONE  ctermbg=7       ctermfg=white
     highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
-    highlight TabLineFill   cterm=NONE  ctermbg=black   ctermfg=white
+    highlight TabLineFill   cterm=NONE  ctermbg=7       ctermfg=white
 endif
 
 " Each tab label
@@ -240,6 +243,7 @@ set tabline=%!TotalTabLine()
 set showcmd                         " Show inputting command
 set wildmenu                        " Store command history
 set history=2000                    " Command history max
+set cmdheight=1                     " Cmd line height
 
 " Beep sound
 set visualbell t_vb=
@@ -281,15 +285,43 @@ function! s:CustomStatusLine(mode)
     elseif a:mode ==# 'leave'
         silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
-            highlight StatusLine cterm=NONE ctermbg=gray ctermfg=black
+            highlight StatusLine    cterm=NONE ctermbg=7 ctermfg=black
+            highlight StatusLineNC  cterm=NONE ctermbg=8 ctermfg=black
         else
-            highlight StatusLine cterm=NONE ctermbg=black ctermfg=white
+            highlight StatusLine    cterm=NONE ctermbg=8 ctermfg=white
+            highlight StatusLineNC  cterm=NONE ctermbg=7 ctermfg=white
         endif
     endif
 endfunction
 
-" Initialize
-call s:CustomStatusLine('leave')
+" Change window
+nnoremap <Tab>k <C-w>k
+nnoremap <Tab>j <C-w>j
+nnoremap <Tab>h <C-w>h
+nnoremap <Tab>l <C-w>l
+" Split window
+set splitbelow
+set splitright
+nnoremap <Tab>s <C-w>s
+nnoremap <Tab>v <C-w>v
+nnoremap ss :split<CR>
+nnoremap sv :vsplit<CR>
+if &background == 'dark'
+    highlight VertSplit ctermbg=gray ctermfg=black
+else
+    highlight VertSplit ctermbg=gray ctermfg=white
+endif
+" Resize window
+nnoremap <Tab><up>      :resize -2<CR>
+nnoremap <Tab><down>    :resize +2<CR>
+nnoremap <Tab><left>    :vertical resize -2<CR>
+nnoremap <Tab><right>   :vertical resize +2<CR>
+nnoremap <Tab>=         <C-w>=
+nnoremap <Tab>m         :wincmd _ \| wincmd \|<CR>
+augroup OnConsoleResized
+    autocmd!
+    autocmd VimResized * wincmd =
+augroup END
 
 " To take effec lighlight after ESC immediately.
 if has('unix') && !has('gui_running')
@@ -330,6 +362,7 @@ let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 0  " default disabled
 noremap     <C-i>   :IndentLinesToggle<CR>
+nnoremap    <Tab>   <nop>
 
 " Coffee Script.
 NeoBundle 'kchmck/vim-coffee-script'
@@ -399,6 +432,10 @@ NeoBundle 'dense-analysis/ale'
 let g:ale_enabled = 1
 let g:ale_linters_explicit = 1  " if linter is N/A, disable ALE
 function! s:ale_setup()
+    if !exists(':ALE*')
+        return
+    endif
+
     let l:linters = ale#linter#Get(&filetype)
     if empty(l:linters)
         " No linters, disable.
@@ -431,6 +468,10 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
 function! AleStatusLine() abort
+    if !exists(':ALE*')
+        return
+    endif
+
     if b:ale_enabled != 1 || g:ale_enabled != 1
       return 'ALE=N/A'
     endif
@@ -489,6 +530,15 @@ augroup END
 " Fern replace default netrw.
 NeoBundle 'lambdalisue/vim-fern-hijack'
 
+" Cheat sheet.
+NeoBundle 'liuchengxu/vim-which-key'
+nnoremap <Esc>h :WhichKey ''<CR>
+highlight link WhichKey StatusLineNC
+highlight link WhichKeySeparator StatusLineNC
+highlight link WhichKeyGroup StatusLineNC
+highlight link WhichKeyDesc StatusLineNC
+highlight link WhichKeyFloating StatusLineNC
+
 
 
 
@@ -528,6 +578,12 @@ nnoremap <F5>   :<C-u>source $MYVIMRC<CR>
 " Escape for PuTTY, it considering F1-F4 as other key sequence.
 nnoremap <F6>   :<C-u>tabedit $MYVIMRC<CR>
 
+" Auto reload .vimrc
+augroup AutoSourceVimrc
+    autocmd!
+    autocmd BufWritePost .vimrc,.vimrc_* source $MYVIMRC
+augroup END
+
 " Open netrw from command line.
 command! Dir :Texplore
 
@@ -542,4 +598,11 @@ command! Dir :Texplore
 if filereadable(expand($HOME.'/.vimrc_override'))
     source $HOME/.vimrc_override
 endif
+
+
+
+" Initialize
+noh " Remove highlight after reload .vimrc
+call s:ale_setup()
+call s:CustomStatusLine('leave')
 
