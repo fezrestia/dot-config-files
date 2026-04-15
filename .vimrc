@@ -441,10 +441,9 @@ function! s:ale_setup()
     if empty(l:linters)
         " No linters, disable.
         let b:ale_enabled = 0
-        set signcolumn=auto
     else
         let b:ale_enabled = 1
-        set signcolumn=yes  " always show left edge sign area
+        setlocal signcolumn=yes  " always show left edge sign area
     endif
 endfunction
 autocmd FileType,BufEnter * call s:ale_setup()
@@ -608,6 +607,10 @@ function! FernEnterKey() abort
     endif
 endfunction
 function! s:initialize_custom_fern() abort
+    setlocal nonumber
+    setlocal signcolumn=yes
+    setlocal foldcolumn=0
+
     nnoremap <buffer><nowait> h :call FernMoveCursorToParentNode()<CR>
 
     " for file, closed dir, opened dir
