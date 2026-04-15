@@ -94,6 +94,7 @@ set virtualedit=block               " Move cursor to anywhere even if there is n
 set showmatch                       " Show matched bracket for a while.
 set noautoindent                    " Cursor is always on line-head after return.
 set nosmartindent                   " Cursor is always on line-head after return.
+set updatetime=300                  " event triggered in [ms] after cursor stopped
 
 " Cursor jump to matched bracket by '%' key.
 source $VIMRUNTIME/macros/matchit.vim
@@ -338,63 +339,79 @@ augroup RemoveTailSpace
 augroup END
 
 " Plug-INs.
-set updatetime=300  " event triggered in [ms] after cursor stopped
-if has('vim_starting') " Only on first load.
-    set runtimepath+=~/.vim/bundle/neobundle.vim " Path setting.
-
-    " If NeoBundle is not installed yet, git clone it.
-    " TODO: Consider proxy environment.
-    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
-        echo "Now on Installing NeoBundle..."
-        call system("mkdir ~/.vim/bundle/neobundle.vim")
-        call system("git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
-    endif
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+" Install plug-in manager.
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl'
+    \       ' -fLo ' . data_dir . '/autoload/plug.vim'
+    \       ' --create-dirs'
+    \       ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Install plug-ins if not installed.
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+\|          PlugInstall --sync
+\|      endif
+
+call plug#begin()
+"
 " <<<<<< Plug-INs from HERE
+"
+" -----------------------------------------------------------
 
 " Visualize tail white spaces.
-NeoBundle 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
+
+" -----------------------------------------------------------
 
 " Indent line.
-NeoBundle 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
+
 let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 0  " default disabled
+
 noremap     <C-i>   :IndentLinesToggle<CR>
 nnoremap    <Tab>   <nop>
 
+" -----------------------------------------------------------
+
 " Coffee Script.
-NeoBundle 'kchmck/vim-coffee-script'
+Plug 'kchmck/vim-coffee-script'
+
 augroup SetupCoffeeScriptPlugin
     autocmd!
     autocmd BufRead,BufNewFile,BufReadPre *.coffee  set filetype=coffee
     autocmd FileType coffee                         setlocal tabstop=2 shiftwidth=2
 augroup END
 
+" -----------------------------------------------------------
+
 " TypeScript.
-if !isdirectory(expand("~/.vim/pack/typescript/start/typescript-vim"))
-    echo "Now on Installing typescript-vim ..."
-    call system("mkdir ~/.vim/pack/typescript/start/typescript-vim")
-    call system("git clone https://github.com/leafgarland/typescript-vim.git ~/.vim/pack/typescript/start/typescript-vim")
-endif
+Plug 'leafgarland/typescript-vim'
+
+" -----------------------------------------------------------
 
 " Search hit num pop up.
-NeoBundle 'obcat/vim-hitspop'
+Plug 'obcat/vim-hitspop'
+
 set hlsearch
 let g:hitspop_line = 'wintop'
 let g:hitspop_column = 'winright'
+
 highlight link hitspopNormal StatusLine
 highlight link hitspopErrorMsg StatusLine
 
+" -----------------------------------------------------------
+
 " Highlight current word and same word.
-NeoBundle 'dominikduda/vim_current_word'
+Plug 'dominikduda/vim_current_word'
+
 let g:vim_current_word#enabled = 1
 let g:vim_current_word#highlight_twins = 1  " highlight same word under cursor
 let g:vim_current_word#highlight_current_word = 1  " highlight word under cursor
 let g:vim_current_Word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_delay = 500  " delayed [ms]
+
 if &background == 'dark'
     highlight CurrentWord ctermfg=NONE ctermbg=237 cterm=NONE
     highlight CurrentWordTwins ctermfg=NONE ctermbg=237 cterm=NONE
@@ -402,20 +419,28 @@ else
     highlight CurrentWord ctermfg=NONE ctermbg=250 cterm=NONE
     highlight CurrentWordTwins ctermfg=NONE ctermbg=250 cterm=NONE
 endif
+
 augroup SetupCurrentWord
     autocmd!
     autocmd BufAdd *.txt,*.md :let b:vim_current_word_disabled_in_this_buffer = 1  " disabled file type
     autocmd BufAdd CMakeLists.txt :let b:vim_current_word_disabled_in_this_buffer = 0  " enabled exception
 augroup END
 
+" -----------------------------------------------------------
+
 " Show scroll bar.
-NeoBundle 'obcat/vim-sclow'
+Plug 'obcat/vim-sclow'
+
 let g:sclow_hide_full_length = 1  " Do not show scroll bar when all lines in screen.
 let g:sclow_auto_hide = 1000  " Hide scroll bar in timeout [ms]
+
 highlight link SclowSbar CurrentWord
 
+" -----------------------------------------------------------
+
 " Highlight matched brackets.
-NeoBundle 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
+
 let g:rainbow_active = 0  " disabled in default
 let g:rainbow_conf = {
 \   'ctermfgs': [21, 39, 51, 46, 226, 208, 196],
@@ -426,12 +451,17 @@ let g:rainbow_conf = {
 \       'markdown': 0,
 \   },
 \}
+
 nnoremap b :RainbowToggle<CR>
 
+" -----------------------------------------------------------
+
 " Syntax check. ( :ALEInfo for debug )
-NeoBundle 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
+
 let g:ale_enabled = 1
 let g:ale_linters_explicit = 1  " if linter is N/A, disable ALE
+
 function! s:ale_setup()
     if !exists(':ALE*')
         return
@@ -446,19 +476,25 @@ function! s:ale_setup()
         setlocal signcolumn=yes  " always show left edge sign area
     endif
 endfunction
+
 autocmd FileType,BufEnter * call s:ale_setup()
+
 " apt install clangd
 let g:ale_linters = {
 \   'c': ['clangd'],
 \   'cpp': ['clangd'],
 \}
+
 let g:ale_root = {
 \   '*': ['.git'],
 \}
+
 let g:ale_c_build_dir = 'build'  " override for each env
+
 function! GenCompileCommandsJson()
     " override for each env
 endfunction
+
 let g:ale_lint_on_text_changed = 'never'  " block lint during editing
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
@@ -467,10 +503,13 @@ let g:ale_sign_warning = 'W:'  " left edeg sign
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
+
 function! AleStatusLine() abort
     if !exists(':ALE*')
         return
     endif
+
+    call s:ale_setup()
 
     if b:ale_enabled != 1 || g:ale_enabled != 1
       return 'ALE=N/A'
@@ -481,20 +520,28 @@ function! AleStatusLine() abort
     let l:total = l:all_errors + l:all_warnings
     return l:total == 0 ? 'ALE=OK' : printf('ALE=E:%d/W:%d', l:all_errors, l:all_warnings)
 endfunction
+
 nnoremap <silent> m :ALENext<CR>
 nnoremap <silent> <S-m> :ALEPrevious<CR>
+
 let g:ale_set_highlights = 1
+
 highlight ALEWarningSign    ctermbg=11  ctermfg=0   " yellow
 highlight ALEWarning        ctermbg=3   ctermfg=0   " yellow
 highlight ALEErrorSign      ctermbg=9   ctermfg=15  " red
 highlight ALEError          ctermbg=1   ctermfg=15  " red
 
+" -----------------------------------------------------------
+
 " Fern filer to replace netrw.
-NeoBundle 'lambdalisue/vim-fern', {'rev': 'main'}
+Plug 'lambdalisue/vim-fern'
+
 let g:fern#default_hidden = 1  " show hidden file
 let g:fern#hide_cursor = 1  " hide cursor on fern buffer
 let g:fern#disable_default_mappings = 1
+
 nnoremap e :Fern . -opener=tabedit -reveal=%<CR>
+
 function! FernMoveCursorToParentNode() abort
     let l:cur_indent = indent('.')
     while search('^\s*|-\s', 'b')  " backward search open dir '|-'
@@ -505,7 +552,10 @@ function! FernMoveCursorToParentNode() abort
       endif
     endwhile
 endfunction
+
 let g:fern_expanded_dirs = []
+let g:fern_retry_wait_ms = 30
+
 function! s:FernSaveExpandedState() abort
     let g:fern_expanded_dirs = []
     let l:helper = fern#helper#new()
@@ -516,7 +566,7 @@ function! s:FernSaveExpandedState() abort
         endif
     endfor
 endfunction
-let g:fern_retry_wait_ms = 30
+
 function! s:FernLoadExpandedState() abort
     if empty(g:fern_expanded_dirs)
         return
@@ -584,6 +634,7 @@ function! s:FernLoadExpandedState() abort
         \       { -> s:FernLoadExpandedState() })
     endif
 endfunction
+
 function! FernEnterKey() abort
     let l:helper = fern#helper#new()
     let l:cursor_node = helper.sync.get_cursor_node()
@@ -606,6 +657,7 @@ function! FernEnterKey() abort
         \       "\<Plug>(fern-action-collapse)")
     endif
 endfunction
+
 function! s:initialize_custom_fern() abort
     setlocal nonumber
     setlocal signcolumn=yes
@@ -626,33 +678,43 @@ function! s:initialize_custom_fern() abort
 
     nnoremap <buffer><nowait> <F5> <Plug>(fern-action-reload)
 endfunction
+
 augroup FernCustomOnOpened
     autocmd!
     autocmd FileType fern call s:initialize_custom_fern()
     autocmd FileType fern call s:FernLoadExpandedState()
 augroup END
 
+" -----------------------------------------------------------
+
 " Fern replace default netrw.
-NeoBundle 'lambdalisue/vim-fern-hijack'
+Plug 'lambdalisue/vim-fern-hijack'
+
+" -----------------------------------------------------------
 
 " Cheat sheet.
-NeoBundle 'liuchengxu/vim-which-key'
+Plug 'liuchengxu/vim-which-key'
+
 nnoremap <Esc>h :WhichKey ''<CR>
+
 highlight link WhichKey StatusLineNC
 highlight link WhichKeySeparator StatusLineNC
 highlight link WhichKeyGroup StatusLineNC
 highlight link WhichKeyDesc StatusLineNC
 highlight link WhichKeyFloating StatusLineNC
 
+" -----------------------------------------------------------
 
 
 
 
 
+
+" -----------------------------------------------------------
+"
 " >>>>>> Plug-INs to HERE
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck " Check for uninstalled plug-ins.
+"
+call plug#end()
 
 " VIM CP Scouter.
 command! Scouter call Scouter()
