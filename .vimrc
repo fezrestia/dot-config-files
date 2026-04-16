@@ -46,6 +46,7 @@ set breakindent
 set breakindentopt=shift:8,sbr
 set showbreak=->
 set display=lastline  " show long line at end of buffer with tail @@@
+set textwidth=0
 
 " Control indent width by file extension.
 augroup fileTypeIndent
@@ -440,10 +441,9 @@ function! s:ale_setup()
     if empty(l:linters)
         " No linters, disable.
         let b:ale_enabled = 0
-        set signcolumn=auto
     else
         let b:ale_enabled = 1
-        set signcolumn=yes  " always show left edge sign area
+        setlocal signcolumn=yes  " always show left edge sign area
     endif
 endfunction
 autocmd FileType,BufEnter * call s:ale_setup()
@@ -500,11 +500,117 @@ function! FernMoveCursorToParentNode() abort
     while search('^\s*|-\s', 'b')  " backward search open dir '|-'
       let l:idt = indent('.')
       if l:idt < l:cur_indent || l:idt ==# 0
+        " Hit parent dir or NOP on top level dir
         break
       endif
     endwhile
 endfunction
+let g:fern_expanded_dirs = []
+function! s:FernSaveExpandedState() abort
+    let g:fern_expanded_dirs = []
+    let l:helper = fern#helper#new()
+    let l:nodes = helper.fern.visible_nodes
+    for node in l:nodes
+        if node.status ==# g:fern#STATUS_EXPANDED
+            call add(g:fern_expanded_dirs, node._path)
+        endif
+    endfor
+endfunction
+let g:fern_retry_wait_ms = 30
+function! s:FernLoadExpandedState() abort
+    if empty(g:fern_expanded_dirs)
+        return
+    endif
+
+    let l:helper = fern#helper#new()
+    let l:nodes = l:helper.fern.visible_nodes
+
+    let l:cur_expanded_dirs = []
+
+    for node in l:nodes
+        " check node is expand target or not.
+        let l:is_expand_target = 0
+        for path in g:fern_expanded_dirs
+            if node._path ==# path
+                if node.status ==# g:fern#STATUS_EXPANDED
+                    call add(l:cur_expanded_dirs, path)
+                else
+                    let l:is_expand_target = 1
+                endif
+                break
+            endif
+        endfor
+
+        " expand node
+        if l:is_expand_target ==# 1
+            let l:key = copy(node.__key)  " lambda capture reference for list, dict.
+            call l:helper.async.expand_node(l:key)
+
+            " call 1 async func for each 1 FernLoadExpandedState()
+            break
+        endif
+    endfor
+
+    " check all expand target dir is expanded or not.
+    let l:is_all_expanded = 1
+    for path in g:fern_expanded_dirs
+        let l:is_hit = 0
+        for cur in l:cur_expanded_dirs
+            if path ==# cur
+                let l:is_hit = 1
+                break
+            endif
+        endfor
+        if l:is_hit ==# 0
+            let l:is_all_expanded = 0
+            break
+        endif
+    endfor
+
+    if l:is_all_expanded
+        let g:fern_expanded_dirs = []
+
+        " reload all, for fail-safe.
+        call timer_start(
+        \       g:fern_retry_wait_ms,
+        \       { -> feedkeys("\<Plug>(fern-action-reload:all)", 'n') })
+
+        " move cursor to top.
+        call cursor(1, 1)
+    else
+        " At least 1 path is not expanded yet, retry.
+        call timer_start(
+        \       g:fern_retry_wait_ms,
+        \       { -> s:FernLoadExpandedState() })
+    endif
+endfunction
+function! FernEnterKey() abort
+    let l:helper = fern#helper#new()
+    let l:cursor_node = helper.sync.get_cursor_node()
+    let l:root_node = helper.sync.get_root_node()
+
+    if l:cursor_node._path ==# l:root_node._path
+        " on root node.
+
+        call s:FernSaveExpandedState()
+
+        execute 'Fern ' . fnamemodify(l:root_node._path, ':h')
+        \       . ' -opener=tabedit'
+    else
+        " on non-root dir/file node.
+
+        " for file, closed dir, opened dir
+        execute 'normal ' . fern#smart#leaf(
+        \       "\<Plug>(fern-action-open:tabedit)",
+        \       "\<Plug>(fern-action-expand:stay)",
+        \       "\<Plug>(fern-action-collapse)")
+    endif
+endfunction
 function! s:initialize_custom_fern() abort
+    setlocal nonumber
+    setlocal signcolumn=yes
+    setlocal foldcolumn=0
+
     nnoremap <buffer><nowait> h :call FernMoveCursorToParentNode()<CR>
 
     " for file, closed dir, opened dir
@@ -513,18 +619,17 @@ function! s:initialize_custom_fern() abort
     \       "\<Plug>(fern-action-expand:stay)",
     \       "")
 
-    " for file, closed dir, opened dir
-    nnoremap <buffer><expr> <CR> fern#smart#leaf(
-    \       "\<Plug>(fern-action-open:tabedit)",
-    \       "\<Plug>(fern-action-expand:stay)",
-    \       "\<Plug>(fern-action-collapse)")
+    nnoremap <buffer> <CR> :call FernEnterKey()<CR>
 
-    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)  " open on own tab
+    " open fern on current tab.
+    nnoremap <buffer><nowait> o <plug>(fern-action-open:edit)
+
     nnoremap <buffer><nowait> <F5> <Plug>(fern-action-reload)
 endfunction
 augroup FernCustomOnOpened
     autocmd!
     autocmd FileType fern call s:initialize_custom_fern()
+    autocmd FileType fern call s:FernLoadExpandedState()
 augroup END
 
 " Fern replace default netrw.
