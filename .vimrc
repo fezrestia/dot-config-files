@@ -505,11 +505,9 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %severity%/%code%: %s'  " echo msg of cursor line
 
 function! AleStatusLine() abort
-    if !exists(':ALE*')
+    if !exists(':ALE*') || !exists('b:ale_enabled')
         return
     endif
-
-    call s:ale_setup()
 
     if b:ale_enabled != 1 || g:ale_enabled != 1
       return 'ALE=N/A'
