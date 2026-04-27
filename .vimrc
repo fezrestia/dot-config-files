@@ -30,7 +30,7 @@ nnoremap    K           <Nop>
 set tabstop=4  " tab width used for <Tab> char in file.
 set expandtab
 set shiftwidth=4  " used for indent.
-set softtabstop=4  " used for <Tab> char input by user.
+set softtabstop=0  " erase 1 char by <BS> key.
 
 " Disable default indent behavior.
 function! GetVimIndent()
