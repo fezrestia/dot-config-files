@@ -365,7 +365,7 @@ let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 0  " default disabled
 
-noremap     <C-i>   :IndentLinesToggle<CR>
+nnoremap    <Tab>i  :IndentLinesToggle<CR>
 nnoremap    <Tab>   <nop>
 
 " -----------------------------------------------------------
