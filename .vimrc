@@ -348,6 +348,8 @@ let s:key_map_popup_lines = [
 \   "  <space>j      -> Jump to Down word",
 \   "  <space>h      -> Jump to Left word",
 \   "  <space>l      -> Jump to Right word",
+\   "  gg            -> Jump to buffer TOP",
+\   "  G             -> Jump to buffer END",
 \   "",
 \   "Tab :",
 \   "  <S-h>         -> Move to Left Tab",
