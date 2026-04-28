@@ -51,22 +51,22 @@ set textwidth=0
 " Control indent width by file extension.
 augroup fileTypeIndent
     autocmd!
-    autocmd BufRead,BufNewFile *.rb         setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.yml        setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.rake       setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.coffee     setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.css        setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.scss       setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile Rakefile     setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.js         setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.jsx        setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.ts         setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.tsx        setlocal tabstop=2 shiftwidth=2 softtabstop=2
-    autocmd BufRead,BufNewFile *.cpp,*.hpp  setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufRead,BufNewFile *.rb         setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yml        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.yaml       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile Gemfile*     setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.erb        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.html       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.rake       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.coffee     setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.css        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.scss       setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile Rakefile     setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.js         setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.jsx        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.ts         setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.tsx        setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.cpp,*.hpp  setlocal tabstop=2 shiftwidth=2
 augroup END
 
 " Auto code styler.
