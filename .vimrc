@@ -815,6 +815,13 @@ Plug 'lambdalisue/vim-fern-hijack'
 
 " -----------------------------------------------------------
 
+" Improve syntax.
+Plug 'sheerun/vim-polyglot'
+
+let g:polyglot_disabled = ['autoindent']
+
+" -----------------------------------------------------------
+
 
 
 
