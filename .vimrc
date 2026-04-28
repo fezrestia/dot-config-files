@@ -344,6 +344,10 @@ let s:key_map_popup_lines = [
 \   "  <S-k/j>       -> Up/Down x10",
 \   "  <C-k/j>       -> page Up/Down",
 \   "  <S-h/l>       -> Home/End",
+\   "  <space>k      -> Jump to Up word",
+\   "  <space>j      -> Jump to Down word",
+\   "  <space>h      -> Jump to Left word",
+\   "  <space>l      -> Jump to Right word",
 \   "",
 \   "Tab :",
 \   "  <S-h>         -> Move to Left Tab",
@@ -819,6 +823,16 @@ Plug 'lambdalisue/vim-fern-hijack'
 Plug 'sheerun/vim-polyglot'
 
 let g:polyglot_disabled = ['autoindent']
+
+" -----------------------------------------------------------
+
+" Cursor jump to next word for vertical.
+Plug 'deris/columnjump'
+
+nnoremap    <space>k    <Plug>(columnjump-backward)
+nnoremap    <space>j    <Plug>(columnjump-forward)
+nnoremap    <space>h    <C-Left>
+nnoremap    <space>l    <C-Right>
 
 " -----------------------------------------------------------
 
