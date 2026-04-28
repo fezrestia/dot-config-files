@@ -815,19 +815,6 @@ Plug 'lambdalisue/vim-fern-hijack'
 
 " -----------------------------------------------------------
 
-" Cheat sheet.
-Plug 'liuchengxu/vim-which-key'
-
-"nnoremap <Esc>h :WhichKey ''<CR>
-
-highlight link WhichKey StatusLineNC
-highlight link WhichKeySeparator StatusLineNC
-highlight link WhichKeyGroup StatusLineNC
-highlight link WhichKeyDesc StatusLineNC
-highlight link WhichKeyFloating StatusLineNC
-
-" -----------------------------------------------------------
-
 
 
 
