@@ -849,6 +849,16 @@ nnoremap    <space>l    <Plug>(smartword-w)
 
 " -----------------------------------------------------------
 
+" Improve syntax.
+Plug 'sheerun/vim-polyglot'
+
+let g:polyglot_disabled = ['autoindent']
+
+let g:polyglot_disabled = []
+let g:polyglot_disabled += ['netrc']  " does not handle comment out
+
+" ---------------------------------------------------------
+
 
 
 
