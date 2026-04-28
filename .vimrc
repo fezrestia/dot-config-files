@@ -833,8 +833,14 @@ Plug 'deris/columnjump'
 
 nnoremap    <space>k    <Plug>(columnjump-backward)
 nnoremap    <space>j    <Plug>(columnjump-forward)
-nnoremap    <space>h    <C-Left>
-nnoremap    <space>l    <C-Right>
+
+" -----------------------------------------------------------
+
+" Cursor jump to next word for horizontal.
+Plug 'kana/vim-smartword'
+
+nnoremap    <space>h    <Plug>(smartword-b)
+nnoremap    <space>l    <Plug>(smartword-w)
 
 " -----------------------------------------------------------
 
