@@ -333,6 +333,136 @@ augroup RemoveTailSpace
     autocmd BufWritePre * :%s/\s\+$//ge
 augroup END
 
+" Popup Window.
+let s:popup_padding_h = 2
+let s:popup_padding_v = 1
+
+" Key map cheat-sheet popup.
+let s:key_map_popup_lines = [
+\   "Cursor :",
+\   "  k/j/h/l       -> Up/Down/Left/Right",
+\   "  <S-k/j>       -> Up/Down x10",
+\   "  <C-k/j>       -> page Up/Down",
+\   "  <S-h/l>       -> Home/End",
+\   "",
+\   "Tab :",
+\   "  <S-h>         -> Move to Left Tab",
+\   "  <S-l>         -> Move to Right Tab",
+\   "",
+\   "Window :",
+\   "  <Tab>k/j/h/l  -> Move to Up/Down/Left/Right window",
+\   "  <Tab>s | ss   -> Split window Horizontal",
+\   "  <Tab>v | sv   -> Split window Vertical",
+\   "  <Tab><Up>     -> Resize wihdow Height -2",
+\   "  <Tab><Down>   -> Resize wihdow Height +2",
+\   "  <Tab><Left>   -> Resize wihdow Width -2",
+\   "  <Tab><Right>  -> Resize wihdow Width +2",
+\   "  <Tab>=        -> Re-Layout windows as equal size",
+\   "  <Tab><Right>  -> Maximize current window",
+\   "",
+\   "Edit :",
+\   "  <C-z>         -> UnDo",
+\   "  <C-r>         -> ReDo",
+\   "  <S-Tab>       -> De-Indent",
+\   "",
+\   "Highlight :",
+\   "  <Esc><Esc>    -> Remove Highlight",
+\   "",
+\   "Help :",
+\   "  <Esc>h        -> Show this key map popup",
+\ ]
+
+let s:key_map_popup_width = 64
+
+let s:key_map_popup_height = &lines
+\   - &cmdheight
+\   - (&laststatus ? 1 : 0)
+\   - (&showtabline == 2 ? 1 : 0)
+\   - s:popup_padding_v * 2
+
+let s:key_map_popup_start_col = &columns
+\   - (s:key_map_popup_width + s:popup_padding_h * 2)
+\   + 1  " +1 : colmuns start from 1.
+
+let s:key_map_popup_start_line = (&showtabline == 2 ? 1 : 0) + 1  " +1 : lines start from 1.
+
+let s:key_map_popup_id = -1
+
+function! ToggleKeyMapPopup() abort
+    " Check already opened or not.
+    if s:key_map_popup_id != -1 && popup_getpos(s:key_map_popup_id)["visible"]
+        call popup_close(s:key_map_popup_id)
+        let s:key_map_popup_id = -1
+        return
+    endif
+
+    let s:key_map_popup_id = popup_create(s:key_map_popup_lines, {
+    \   "line": s:key_map_popup_start_line,
+    \   "col": s:key_map_popup_start_col,
+    \   "pos": "topleft",
+    \   "minwidth": s:key_map_popup_width,
+    \   "maxwidth": s:key_map_popup_width,
+    \   "minheight": s:key_map_popup_height,
+    \   "maxheight": s:key_map_popup_height,
+    \   "border": [0, 0, 0, 0],
+    \   "padding": [
+    \       s:popup_padding_v,
+    \       s:popup_padding_h,
+    \       s:popup_padding_v,
+    \       s:popup_padding_h,
+    \   ],
+    \   "mapping": v:false,
+    \   "scrollbar": v:true,
+    \   "zindex": 1000,
+    \   "highlight": "StatusLineNC",
+    \ })
+
+    call popup_setoptions(s:key_map_popup_id, {
+    \   "filter": function("s:key_map_popup_filter"),
+    \ })
+endfunction
+
+function! s:key_map_popup_filter(id, key) abort
+    echo "key=" . a:key
+
+    " ignore control char.
+    if strgetchar(a:key, 0) == 0x80
+        return 1
+    endif
+
+    " scroll up/down.
+    let l:next_firstline = 0
+    let l:prev_firstline = popup_getpos(a:id).firstline
+    if a:key ==# "j"
+        let l:lastline = popup_getpos(a:id).lastline
+        if l:lastline >= len(s:key_map_popup_lines)
+            " Already at bottom end.
+            return 1
+        endif
+        let l:next_firstline = l:prev_firstline + 1
+    endif
+    if a:key ==# "k"
+        if l:prev_firstline <= 1
+            " Already at top end.
+            return 1
+        endif
+        let l:next_firstline = l:prev_firstline - 1
+    endif
+    if l:next_firstline !=# 0
+        call popup_setoptions(a:id, {
+        \   "firstline": l:next_firstline,
+        \ })
+        return 1
+    endif
+
+    " any key.
+    call popup_close(a:id)
+    let s:key_map_popup_id = -1
+    return 1
+endfunction
+
+nnoremap    <Esc>h  :call ToggleKeyMapPopup()<CR>
+
 " Plug-INs.
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 " Install plug-in manager.
@@ -688,7 +818,7 @@ Plug 'lambdalisue/vim-fern-hijack'
 " Cheat sheet.
 Plug 'liuchengxu/vim-which-key'
 
-nnoremap <Esc>h :WhichKey ''<CR>
+"nnoremap <Esc>h :WhichKey ''<CR>
 
 highlight link WhichKey StatusLineNC
 highlight link WhichKeySeparator StatusLineNC
