@@ -88,13 +88,22 @@ set ruler                           " Cursor ruler
 set number                          " Line number
 set scrolloff=4                     " Start scroll before cursor reaches to screen end
 set cursorline                      " Cursor line highlight
-"set cursorcolumn                    " Cursor column highlight
+set cursorcolumn                    " Cursor column highlight
 set whichwrap=h,l,<,>,[,]           " Move cursor from current head to upper line tail
 set virtualedit=block               " Move cursor to anywhere even if there is no charactor
 set showmatch                       " Show matched bracket for a while.
 set noautoindent                    " Cursor is always on line-head after return.
 set nosmartindent                   " Cursor is always on line-head after return.
 set updatetime=300                  " event triggered in [ms] after cursor stopped
+if &background == 'dark'
+    highlight CursorLine    cterm=NONE  ctermbg=238     ctermfg=NONE    guibg=#444444   guifg=NONE
+    highlight CursorLineNr  cterm=NONE  ctermbg=238                     guibg=#444444
+    highlight CursorColumn  cterm=NONE  ctermbg=NONE    ctermfg=NONE    guibg=NONE      guifg=NONE
+else
+    highlight CursorLine    cterm=NONE  ctermbg=254     ctermfg=NONE    guibg=#eeeeee   guifg=NONE
+    highlight CursorLineNr  cterm=NONE  ctermbg=254                     guibg=#eeeeee
+    highlight CursorColumn  cterm=NONE  ctermbg=NONE    ctermfg=NONE    guibg=NONE      guifg=NONE
+endif
 
 " Cursor jump to matched bracket by '%' key.
 source $VIMRUNTIME/macros/matchit.vim
@@ -174,13 +183,13 @@ map L gt
 
 " Highlight for TabLine.
 if &background == 'dark'
-    highlight TabLine       cterm=NONE  ctermbg=8       ctermfg=black
-    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white
-    highlight TabLineFill   cterm=NONE  ctermbg=8       ctermfg=black
+    highlight TabLine       cterm=NONE  ctermbg=8       ctermfg=black   guibg=#808080   guifg=black
+    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=white   guibg=NONE      guifg=white
+    highlight TabLineFill   cterm=NONE  ctermbg=8       ctermfg=black   guibg=#808080   guifg=black
 else " background == light
-    highlight TabLine       cterm=NONE  ctermbg=7       ctermfg=white
-    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black
-    highlight TabLineFill   cterm=NONE  ctermbg=7       ctermfg=white
+    highlight TabLine       cterm=NONE  ctermbg=7       ctermfg=black   guibg=#c0c0c0   guifg=black
+    highlight TabLineSel    cterm=NONE  ctermbg=NONE    ctermfg=black   guibg=NONE      guifg=black
+    highlight TabLineFill   cterm=NONE  ctermbg=7       ctermfg=black   guibg=#c0c0c0   guifg=black
 endif
 
 " Each tab label
@@ -282,32 +291,42 @@ function! s:CustomStatusLine(mode)
     elseif a:mode ==# 'leave'
         silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
-            highlight StatusLine    cterm=NONE ctermbg=7 ctermfg=black
-            highlight StatusLineNC  cterm=NONE ctermbg=8 ctermfg=black
+            highlight StatusLine    cterm=NONE  ctermbg=7   ctermfg=black   guibg=#c0c0c0   guifg=black
+            highlight StatusLineNC  cterm=NONE  ctermbg=8   ctermfg=black   guibg=#808080   guifg=black
+            highlight SignColumn                ctermbg=8                   guibg=#808080
         else
-            highlight StatusLine    cterm=NONE ctermbg=8 ctermfg=white
-            highlight StatusLineNC  cterm=NONE ctermbg=7 ctermfg=white
+            highlight StatusLine    cterm=NONE  ctermbg=8   ctermfg=white   guibg=#808080   guifg=white
+            highlight StatusLineNC  cterm=NONE  ctermbg=7   ctermfg=white   guibg=#c0c0c0   guifg=white
+            highlight SignColumn                ctermbg=7                   guibg=#c0c0c0
         endif
     endif
 endfunction
+
+" Sign column.
+if &background == 'dark'
+    highlight SignColumn    ctermbg=8   guibg=#808080
+else
+    highlight SignColumn    ctermbg=7   guibg=#c0c0c0
+endif
 
 " Change window
 nnoremap <Tab>k <C-w>k
 nnoremap <Tab>j <C-w>j
 nnoremap <Tab>h <C-w>h
 nnoremap <Tab>l <C-w>l
+
 " Split window
 set splitbelow
 set splitright
+set fillchars+=vert:\ ,  " do not use char for vertical split line
+
 nnoremap <Tab>s <C-w>s
 nnoremap <Tab>v <C-w>v
 nnoremap ss :split<CR>
 nnoremap sv :vsplit<CR>
-if &background == 'dark'
-    highlight VertSplit ctermbg=gray ctermfg=black
-else
-    highlight VertSplit ctermbg=gray ctermfg=white
-endif
+
+highlight! link VertSplit StatusLineNc
+
 " Resize window
 nnoremap <Tab><up>      :resize -2<CR>
 nnoremap <Tab><down>    :resize +2<CR>
@@ -320,7 +339,7 @@ augroup OnConsoleResized
     autocmd VimResized * wincmd =
 augroup END
 
-" To take effec lighlight after ESC immediately.
+" To take effect highlight after ESC immediately.
 if has('unix') && !has('gui_running')
     set notimeout
     set ttimeout
@@ -429,8 +448,6 @@ function! ToggleKeyMapPopup() abort
 endfunction
 
 function! s:key_map_popup_filter(id, key) abort
-    echo "key=" . a:key
-
     " ignore control char.
     if strgetchar(a:key, 0) == 0x80
         return 1
@@ -543,13 +560,8 @@ let g:vim_current_word#highlight_current_word = 1  " highlight word under cursor
 let g:vim_current_Word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_delay = 500  " delayed [ms]
 
-if &background == 'dark'
-    highlight CurrentWord ctermfg=NONE ctermbg=237 cterm=NONE
-    highlight CurrentWordTwins ctermfg=NONE ctermbg=237 cterm=NONE
-else
-    highlight CurrentWord ctermfg=NONE ctermbg=250 cterm=NONE
-    highlight CurrentWordTwins ctermfg=NONE ctermbg=250 cterm=NONE
-endif
+highlight! link CurrentWord         CursorLine
+highlight! link CurrentWordTwins    CursorLine
 
 augroup SetupCurrentWord
     autocmd!
@@ -565,7 +577,7 @@ Plug 'obcat/vim-sclow'
 let g:sclow_hide_full_length = 1  " Do not show scroll bar when all lines in screen.
 let g:sclow_auto_hide = 1000  " Hide scroll bar in timeout [ms]
 
-highlight link SclowSbar CurrentWord
+highlight! link SclowSbar CurrentWord
 
 " -----------------------------------------------------------
 
@@ -655,10 +667,10 @@ nnoremap <silent> <S-m> :ALEPrevious<CR>
 
 let g:ale_set_highlights = 1
 
-highlight ALEWarningSign    ctermbg=11  ctermfg=0   " yellow
-highlight ALEWarning        ctermbg=3   ctermfg=0   " yellow
-highlight ALEErrorSign      ctermbg=9   ctermfg=15  " red
-highlight ALEError          ctermbg=1   ctermfg=15  " red
+highlight ALEWarningSign    ctermbg=11  ctermfg=0   guibg=yellow        guifg=black
+highlight ALEWarning        ctermbg=3   ctermfg=0   guibg=darkyellow    guifg=black
+highlight ALEErrorSign      ctermbg=9   ctermfg=15  guibg=red           guifg=white
+highlight ALEError          ctermbg=1   ctermfg=15  guibg=darkred       guifg=white
 
 " -----------------------------------------------------------
 
@@ -848,6 +860,20 @@ nnoremap    <space>l    <Plug>(smartword-w)
 
 
 
+
+" -----------------------------------------------------------
+
+" colorscheme
+
+set termguicolors
+
+Plug 'cocopon/iceberg.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'nordtheme/vim'
 
 " -----------------------------------------------------------
 "
