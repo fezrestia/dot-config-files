@@ -1,0 +1,9 @@
+<application>
+  <component name="CodeInsightSettings">
+    <option name="SMART_BACKSPACE" value="0" />
+    <option name="SMART_INDENT_ON_ENTER" value="false" />
+  </component>
+  <component name="EditorSettings">
+    <option name="IS_BLOCK_CURSOR" value="true" />
+  </component>
+</application>
