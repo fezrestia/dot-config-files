@@ -287,7 +287,7 @@ endif
 function! s:CustomStatusLine(mode)
     if a:mode ==# 'enter'
         silent set statusline=[INSERT]\ FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
-        highlight StatusLine cterm=NONE ctermbg=red ctermfg=white
+        highlight StatusLine    cterm=NONE  ctermbg=red ctermfg=white   guibg=#ff0000   guifg=#ffffff
     elseif a:mode ==# 'leave'
         silent set statusline=FILE=%F%m%=%{AleStatusLine()}\ \ LINE=%l/%L\ \ COL=%c
         if &background == 'dark'
