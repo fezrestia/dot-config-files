@@ -67,6 +67,7 @@ augroup fileTypeIndent
     autocmd BufRead,BufNewFile *.ts         setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.tsx        setlocal tabstop=2 shiftwidth=2
     autocmd BufRead,BufNewFile *.cpp,*.hpp  setlocal tabstop=2 shiftwidth=2
+    autocmd BufRead,BufNewFile *.py         setlocal tabstop=4 shiftwidth=4
 augroup END
 
 " Auto code styler.
