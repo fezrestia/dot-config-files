@@ -683,6 +683,7 @@ let g:fern#hide_cursor = 1  " hide cursor on fern buffer
 let g:fern#disable_default_mappings = 1
 
 nnoremap e :Fern . -opener=tabedit -reveal=%<CR>
+nnoremap <space>e :Fern . -reveal=%<CR>
 
 function! FernMoveCursorToParentNode() abort
     let l:cur_indent = indent('.')
