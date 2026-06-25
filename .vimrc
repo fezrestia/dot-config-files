@@ -394,6 +394,9 @@ let s:key_map_popup_lines = [
 \   "Highlight :",
 \   "  <Esc><Esc>    -> Remove Highlight",
 \   "",
+\   "Misc :",
+\   "  <space>i      -> Indent Line",
+\   "",
 \   "Help :",
 \   "  <Esc>h        -> Show this key map popup",
 \ ]
@@ -519,8 +522,7 @@ let g:indentLine_color_term = 8
 let g:indentLine_char = '¦'
 let g:indentLine_enabled = 0  " default disabled
 
-nnoremap    <Tab>i  :IndentLinesToggle<CR>
-nnoremap    <Tab>   <nop>
+nnoremap    <space>i  :IndentLinesToggle<CR>
 
 " -----------------------------------------------------------
 
