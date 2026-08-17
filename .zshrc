@@ -100,3 +100,13 @@ if [[ -t 0 ]]; then
     stty start undef
 fi
 
+
+
+
+
+
+# Load local config.
+if [[ -f ~/.zshrc_local ]]; then
+    source ~/.zshrc_local
+fi
+
