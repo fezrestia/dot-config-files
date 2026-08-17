@@ -1,7 +1,28 @@
 # .zshrc
 
-# Environmental Variables
-export LANG=en_US.UTF-8
+# define optimal lang config.
+locale_patterns=(
+    "^c\.utf-?8$"       # c.utf-8
+    "^en_us\.utf-?8$"   # en_us.utf-8
+    "^ja_jp\.utf-?8$"   # ja_jp.utf-8
+    "utf-?8"            # other any utf-8
+)
+
+available_locales=()
+while IFS= read -r locale_name; do  # read 1 line as 1 line with no separation of locale -a output
+    available_locales+=("$locale_name")
+done < <(locale -a 2>/dev/null)
+
+for pattern in "${locale_patterns[@]}"; do
+    for locale_name in "${available_locales[@]}"; do
+        if [[ "${locale_name:l}" =~ $pattern ]]; then
+            export LANG="$locale_name"
+            break 2  # break for-loop x2
+        fi
+    done
+done
+
+# other local variables
 export EDITOR=vi
 
 # Key Bind
