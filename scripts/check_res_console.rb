@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+require "io/console"
+
 IS_DEBUG = false
 LOOP_INTERVAL_SEC = 1
 
@@ -380,21 +382,29 @@ loop {
 
   tmp_gpu_line = "TMP GPU   |  #{gpu_temp} [degC]"
 
-  puts "\n" * 24
-  puts cpu_line
-  puts gpu_line
-  puts ram_line
-  puts vram_line
-  puts load_line
-  puts disk_line
-  puts net_line
-  puts tmp_cpu_line
-  puts tmp_gpu_line
-  puts
+
+  total_lines = [
+      cpu_line,
+      gpu_line,
+      ram_line,
+      vram_line,
+      load_line,
+      disk_line,
+      net_line,
+      tmp_cpu_line,
+      tmp_gpu_line,
+  ].join("\n")
 
 
   elapsed_sec = Process.clock_gettime(Process::CLOCK_MONOTONIC) - proc_start_sec
-  puts "calc stats elapsed time  =  #{format("%.2f", elapsed_sec * 1000)}  [ms]"
+
+  total_lines += "\n"
+  total_lines += "calc stats elapsed time  =  #{format("%.2f", elapsed_sec * 1000)}  [ms]"
+
+  rows, cols = STDOUT.winsize
+  total_lines = "\n" * (rows - total_lines.lines.count) + total_lines
+  puts total_lines
+
   sleep_sec = LOOP_INTERVAL_SEC - elapsed_sec
   if sleep_sec > 0.0
     sleep sleep_sec
