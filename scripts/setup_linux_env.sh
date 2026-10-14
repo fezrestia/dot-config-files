@@ -30,6 +30,8 @@ sudo apt install -y \
     vino \
     gnome-tweaks \
     ibus-mozc \
+    mozc-utils-gui \
+
 
 
 # additional tools
