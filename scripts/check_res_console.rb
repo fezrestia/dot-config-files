@@ -394,7 +394,7 @@ loop {
       tmp_cpu_line,
       tmp_gpu_line,
   ].join("\n")
-
+  total_lines += "\n"
 
   elapsed_sec = Process.clock_gettime(Process::CLOCK_MONOTONIC) - proc_start_sec
 
