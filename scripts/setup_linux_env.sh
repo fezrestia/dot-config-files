@@ -38,6 +38,7 @@ sudo apt install -y \
 sudo apt install -y \
     sqlitebrowser \
     lm-sensors \
+    binutils-aarch64-linux-gnu \
 
 
 
