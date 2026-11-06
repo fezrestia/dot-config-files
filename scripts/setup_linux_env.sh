@@ -17,6 +17,7 @@ sudo apt install -y \
     zsh \
     tmux \
     samba \
+    smbclient \
     parted \
 
 
